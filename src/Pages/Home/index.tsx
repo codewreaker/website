@@ -248,7 +248,7 @@ const ExperienceItemComponent: React.FC<ExperienceItem> = ({
             {subtitle}
           </div>
         ))}
-        <p className="experience-description">{description}</p>
+        <p>{description}</p>
         <div className="tech-stack">
           {techStack.map((tech, index) => (
             <span key={index} className="tech-tag">
