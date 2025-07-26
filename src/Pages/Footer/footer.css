@@ -1,0 +1,27 @@
+.terminal-footer {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  padding: clamp(0.5rem, 2vw, 0.8rem) clamp(0.5rem, 2vw, 2rem);
+  border-top: 1px solid #333;
+  font-size: clamp(0.7rem, 2vw, 1.1rem);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 auto;
+  gap: clamp(0.3rem, 1vw, 1rem);
+  text-align: center;
+}
+
+.terminal-prompt {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+}
+
+.terminal-text {
+  color: #ffffff;
+  font-family: 'Courier New', monospace;
+}
