@@ -31,7 +31,6 @@ export default defineConfig(() => ({
   build: {
     emptyOutDir: true,
     transformMixedEsModules: true,
-    outDir: '../../dist/packages/website',
     reportCompressedSize: true,
     commonjsOptions: { transformMixedEsModules: true },
   },
