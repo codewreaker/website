@@ -64,9 +64,16 @@ html {
 
 .layout-content {
   min-width: 350px;
-  margin-inline: 2vw;
+  margin-inline: 10vw;
   margin-top: clamp(5%, 5vw + 2rem, 12%);
 }
+
+@media (max-width: 768px) {
+  .layout-content {
+    margin-inline: 3vw;
+  }
+}
+
 
 
 .gradient-bg {
