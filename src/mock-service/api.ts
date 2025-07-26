@@ -16,7 +16,7 @@ export const portfolioAPI = {
   getProjects: async () => {
     const response = await fetch(`${API_BASE}/projects`)
     const data = await response.json()
-    return data
+    return data || []
   },
 
   // Get single project
@@ -44,7 +44,7 @@ export const portfolioAPI = {
     const url = `${API_BASE}/blog${params.toString() ? '?' + params.toString() : ''}`
     const response = await fetch(url)
     const data = await response.json()
-    return data
+    return data || []
   },
 
   // Get single blog post

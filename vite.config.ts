@@ -30,6 +30,7 @@ export default defineConfig(() => ({
   // },
   build: {
     emptyOutDir: true,
+    sourcemap: true, // Enable sourcemaps
     transformMixedEsModules: true,
     reportCompressedSize: true,
     commonjsOptions: { transformMixedEsModules: true },

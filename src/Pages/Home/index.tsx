@@ -74,7 +74,7 @@ interface SocialLinksProps {
   links: Link[];
 }
 
-const SocialLinks: React.FC<SocialLinksProps> = ({ links }) => {
+const SocialLinks: React.FC<SocialLinksProps> = ({ links = [] }) => {
   const iconMap: Record<Link['label'], React.ElementType> = {
     GitHub: GitHubIcon,
     LinkedIn: LinkedInIcon,
@@ -200,9 +200,8 @@ const Projects: React.FC<{ data: Project[] }> = ({ data }) => {
   return (
     <div
       id="projects"
-      className={`portfolio-projects gradient-bg ${
-        skipAnimations ? '' : 'fade-in-up'
-      }`}
+      className={`portfolio-projects gradient-bg ${skipAnimations ? '' : 'fade-in-up'
+        }`}
     >
       <GeometricCard
         heading={'Developer'}
@@ -328,9 +327,8 @@ const CVSection: React.FC<{ data: ResumeProps }> = ({ data }) => {
                 <ul>
                   <li>
                     <button
-                      className={`nav-link ${
-                        activeSection === 'experience' ? 'active' : ''
-                      }`}
+                      className={`nav-link ${activeSection === 'experience' ? 'active' : ''
+                        }`}
                       onClick={scrollToSection('experience', setActiveSection)}
                     >
                       <span className="nav-indicator"></span>
@@ -339,9 +337,8 @@ const CVSection: React.FC<{ data: ResumeProps }> = ({ data }) => {
                   </li>
                   <li>
                     <button
-                      className={`nav-link ${
-                        activeSection === 'education' ? 'active' : ''
-                      }`}
+                      className={`nav-link ${activeSection === 'education' ? 'active' : ''
+                        }`}
                       onClick={scrollToSection('education', setActiveSection)}
                     >
                       <span className="nav-indicator"></span>
@@ -350,9 +347,8 @@ const CVSection: React.FC<{ data: ResumeProps }> = ({ data }) => {
                   </li>
                   <li>
                     <button
-                      className={`nav-link ${
-                        activeSection === 'volunteering' ? 'active' : ''
-                      }`}
+                      className={`nav-link ${activeSection === 'volunteering' ? 'active' : ''
+                        }`}
                       onClick={scrollToSection(
                         'volunteering',
                         setActiveSection
@@ -384,9 +380,8 @@ const CVSection: React.FC<{ data: ResumeProps }> = ({ data }) => {
               <ul>
                 <li>
                   <button
-                    className={`nav-link ${
-                      activeSection === 'experience' ? 'active' : ''
-                    }`}
+                    className={`nav-link ${activeSection === 'experience' ? 'active' : ''
+                      }`}
                     onClick={scrollToSection('experience', setActiveSection)}
                   >
                     <span className="nav-indicator"></span>
@@ -395,9 +390,8 @@ const CVSection: React.FC<{ data: ResumeProps }> = ({ data }) => {
                 </li>
                 <li>
                   <button
-                    className={`nav-link ${
-                      activeSection === 'education' ? 'active' : ''
-                    }`}
+                    className={`nav-link ${activeSection === 'education' ? 'active' : ''
+                      }`}
                     onClick={scrollToSection('education', setActiveSection)}
                   >
                     <span className="nav-indicator"></span>
@@ -406,9 +400,8 @@ const CVSection: React.FC<{ data: ResumeProps }> = ({ data }) => {
                 </li>
                 <li>
                   <button
-                    className={`nav-link ${
-                      activeSection === 'volunteering' ? 'active' : ''
-                    }`}
+                    className={`nav-link ${activeSection === 'volunteering' ? 'active' : ''
+                      }`}
                     onClick={scrollToSection('volunteering', setActiveSection)}
                   >
                     <span className="nav-indicator"></span>

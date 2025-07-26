@@ -6,6 +6,7 @@ import { startMocking } from '../../mock-service/setup.js';
 import { AnimationProvider } from '../../context/AnimationContext.js';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { isDev, logVercelEnvVars } from '../../utils/env-utils.js';
+import { RouteErrorDisplay } from '../ErrorBoundary/index.js';
 
 const Home = lazy(() => import('../Home/index.js'));
 const Blog = lazy(() => import('../Blog/index.js'));
@@ -33,6 +34,7 @@ const RootComponent = () => (
 
 const rootRoute = createRootRoute({
   component: RootComponent,
+  errorComponent: ({ error }) => <RouteErrorDisplay error={error as Error} />
 });
 
 const indexRoute = createRoute({
@@ -45,6 +47,7 @@ const blogRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/blog',
   component: Blog,
+  errorComponent: ({ error }) => <RouteErrorDisplay error={error as Error} />
 });
 
 const adminRoute = createRoute({
@@ -67,12 +70,12 @@ declare module '@tanstack/react-router' {
   }
 }
 
+const ERROR_MSG = 'Production environment detected: MSW initialization skipped. Verify Vercel environment configuration and VITE_PREPROD flag for pre-production features.'
 
 
 export default function Layout() {
   const [mockingStarted, setMockingStarted] = useState(false);
   console.log(`======SETTING_UP=======`);
-  logVercelEnvVars();
 
   useEffect(() => {
     // Start MSW in development
@@ -82,9 +85,13 @@ export default function Layout() {
         console.log('MSW mocking started');
       });
     } else {
+      // Log Vercel environment variables in production
+      logVercelEnvVars();
+      console.error(ERROR_MSG);
       setMockingStarted(true);
     }
   }, []);
+
 
   if (isDev && !mockingStarted) {
     return <div>Setting Up MSW...</div>;

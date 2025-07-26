@@ -36,7 +36,7 @@ const Terminal = ({
   // Internal state if not controlled
   const [internalActiveTab, setInternalActiveTab] = useState<string>();
 
-  const activeTab = activeTabKey || internalActiveTab || tabProjects[0]?.key;
+  const activeTab = activeTabKey || internalActiveTab || (tabProjects || [{key:'core'}])[0]?.key;
 
   const setActiveTab = (key: string) => {
     setInternalActiveTab(key);
