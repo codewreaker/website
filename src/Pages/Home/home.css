@@ -240,12 +240,13 @@
   justify-content: center;
   padding: 20px 0px;
   cursor: pointer;
+
+  img {
+    width: auto;
+    height: 60px;
+  }
 }
 
-.scroll-indicator img {
-  width: auto;
-  height: 60px;
-}
 
 /* ===== PROJECTS SECTION ===== */
 .portfolio-projects {
@@ -818,6 +819,10 @@
 
   .portfolio-btn {
     align-self: center;
+  }
+
+  .scroll-indicator {
+    display: none;
   }
 
   .main-content {

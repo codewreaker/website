@@ -19,8 +19,8 @@
   & .logo {
     font-weight: bold;
     color: var(--color-text);
-    width: auto;
-    height: 24px;
+    width: 40px;
+    height: auto;
     filter: brightness(0) invert(1);
     opacity: 0.9;
 

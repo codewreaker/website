@@ -686,6 +686,11 @@ const Home: React.FC = () => {
         <span className="highlight"> — Steve Jobs</span>
       </p>
       <BlogList data={homePage.blogPosts} />
+      <div className="portfolio-avatar">
+        <div className="circular-mask" style={{border:'unset'}}>
+          <img alt="avatar" height="100%"  src="assets/clayavatar.jpeg"/>
+        </div>
+      </div>
     </>
   );
 };
