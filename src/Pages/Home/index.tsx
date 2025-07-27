@@ -137,12 +137,6 @@ const Hero: React.FC<{ data: Bio }> = ({ data }) => {
           <div className="portfolio-description">{data?.description}</div>
           <SocialLinks links={data?.links} />
           <div className="portfolio-hero-actions">
-            <button
-              className="portfolio-btn"
-              onClick={() => (window.location.href = '#projects')}
-            >
-              Projects
-            </button>
             <div className="signature-container">
               <img src="./assets/signature.png" alt="signature" />
             </div>
@@ -207,7 +201,7 @@ const Projects: React.FC<{ data: Project[] }> = ({ data }) => {
         heading={'Developer'}
         title={'Projects'}
         action={'See All'}
-        tagline={'by Me'}
+        tagline={'A collection of my work'}
         customStyle={{ width: 360 }}
         onClick={() => window.open('https://github.com/codewreaker/', '_blank')}
       />
@@ -215,6 +209,7 @@ const Projects: React.FC<{ data: Project[] }> = ({ data }) => {
     </div>
   );
 };
+
 
 const ExperienceItemComponent: React.FC<ExperienceItem> = ({
   period,
@@ -410,14 +405,7 @@ const CVSection: React.FC<{ data: ResumeProps }> = ({ data }) => {
                 </li>
               </ul>
             </nav>
-            <a
-              href="/cv-2025.pdf"
-              style={{ alignSelf: 'center' }}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="portfolio-btn">Download CV</button>
-            </a>
+            <button onClick={() => window.open('/cv-2025.pdf')} className="portfolio-btn">Download CV</button>
           </div>
         </div>
       )}
@@ -475,6 +463,7 @@ African and London university candidates. This program was overseen by the CTO.
 // Blog Section Component
 const BlogList: React.FC<{ data: BlogPost[] }> = ({ data }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [seeMore, setSeeMore] = useState(false);
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 480);
     checkMobile();
@@ -510,7 +499,15 @@ const BlogList: React.FC<{ data: BlogPost[] }> = ({ data }) => {
               <span className="read-time">{featuredPost?.readTime}</span>
             </div>
             <h2 className="featured-title">{featuredPost?.title}</h2>
-            <p className="featured-excerpt">{featuredPost?.excerpt}</p>
+            <p className={`featured-excerpt${seeMore ? ' see-more' : ''}`}>{featuredPost?.excerpt}</p>
+
+            <button
+              className="see-more-btn"
+              onClick={() => setSeeMore((v) => !v)}
+              aria-expanded={seeMore}
+            >
+              {seeMore ? 'See Less' : 'See More'}
+            </button>
             {isMobile && (
               <div className="blog-preview-scroll">
                 {previewPosts.map((post) => (
@@ -524,13 +521,7 @@ const BlogList: React.FC<{ data: BlogPost[] }> = ({ data }) => {
                     <div className="blog-preview-title">{post.title}</div>
                   </div>
                 ))}
-                <button className="see-more-blogs-btn">
-                  <span className="see-more-icon">→</span>
-                </button>
               </div>
-            )}
-            {!isMobile && (
-              <button className="portfolio-btn">Read Article</button>
             )}
           </div>
         </article>

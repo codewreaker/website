@@ -22,7 +22,11 @@ const navConfig: NavItem[] = [
   { label: 'Projects', href: '#projects' },
   { label: 'CV', href: '#cv' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Dev', href: '/playground' },
+  {
+    label: 'Docs',
+    href: 'https://docs.israelprempeh.com',
+    external: true
+  },
   {
     label: 'GitHub',
     href: 'https://github.com/codewreaker',
@@ -90,9 +94,9 @@ const Header = () => {
   return (
     <header className="header" data-theme={isDark ? 'dark' : 'light'}>
       <div className="header-content">
-        <a href="/" style={{textDecoration: 'none'}}>
+        <a href="/" style={{ textDecoration: 'none' }}>
           <div className="logo">
-            <span>IP</span>
+            <img src="./assets/signature.png" alt="signature" width={'100%'} height={'100%'}/>
           </div>
         </a>
         <button

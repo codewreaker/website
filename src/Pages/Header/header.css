@@ -17,11 +17,15 @@
   }
 
   & .logo {
-    font-size: 1.5rem;
     font-weight: bold;
     color: var(--color-text);
+    width: auto;
+    height: 24px;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
 
     & span {
+      font-size: 1.5rem;
       background: var(--color-bg-gradient);
       -webkit-background-clip: text;
       background-clip: text;
@@ -133,7 +137,7 @@
     padding: 6px 12px;
     background: var(--color-primary);
     color: var(--color-bg);
-    font-size: 14px;
+    font-size: 0.875rem;
     border-radius: 4px;
     white-space: nowrap;
     opacity: 0;
@@ -181,7 +185,7 @@
 @media (max-width: 768px) {
   .header {
     & .mobile-menu-button {
-      display: flex;  
+      display: flex;
       align-items: center;
       justify-content: center;
       background: var(--color-bg-darker);
@@ -264,16 +268,20 @@
 @media (max-width: 430px) {
   .header {
     margin-inline: 0;
+
     & .header-content {
       min-width: unset;
       padding: 0.5rem 0.5rem;
     }
+
     & .logo {
       font-size: 1.1rem;
+
       & span {
         font-size: 1.3rem;
       }
     }
+
     & .nav-menu {
       width: 50vw;
       padding: 4rem 0.5rem 1rem;
