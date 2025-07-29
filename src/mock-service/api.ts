@@ -33,40 +33,7 @@ export const portfolioAPI = {
     return data
   },
 
-  // Get blog posts with optional filters
-  getBlogPosts: async (filters:any = {}) => {
-    const params = new URLSearchParams()
-    
-    if (filters.category) params.append('category', filters.category)
-    if (filters.featured) params.append('featured', 'true')
-    if (filters.limit) params.append('limit', filters.limit.toString())
 
-    const url = `${API_BASE}/blog${params.toString() ? '?' + params.toString() : ''}`
-    const response = await fetch(url)
-    const data = await response.json()
-    return data || []
-  },
-
-  // Get single blog post
-  getBlogPost: async (id:string) => {
-    const response = await fetch(`${API_BASE}/blog/${id}`)
-    const data = await response.json()
-    return data
-  },
-
-  // Get blog categories
-  getBlogCategories: async () => {
-    const response = await fetch(`${API_BASE}/blog/categories`)
-    const data = await response.json()
-    return data
-  },
-
-  // Get featured blog posts
-  getFeaturedPosts: async () => {
-    const response = await fetch(`${API_BASE}/blog/featured`)
-    const data = await response.json()
-    return data
-  },
 
   // Get portfolio stats
   getStats: async () => {

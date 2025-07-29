@@ -7,7 +7,6 @@ import { SpeechBubble } from '../../Components/SpeechBubble/index.js';
 import Terminal from '../../Components/Terminal/index.js';
 import GeometricCard from '../../Components/GeometricCard/index.js';
 import { scrollToSection } from '../../utils/scrollToSection.js';
-import { formatDate } from '../../utils/formatDate.js';
 
 import { portfolioAPI } from '../../mock-service/api.js';
 
@@ -461,9 +460,8 @@ African and London university candidates. This program was overseen by the CTO.
 };
 
 // Blog Section Component
-const BlogList: React.FC<{ data: BlogPost[] }> = ({ data }) => {
+const Blog = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [seeMore, setSeeMore] = useState(false);
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 480);
     checkMobile();
@@ -471,86 +469,26 @@ const BlogList: React.FC<{ data: BlogPost[] }> = ({ data }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const featuredPost = data.find((post) => post.featured) || data[0];
-  const allPosts = data.filter((post) => post.id !== featuredPost.id);
-  const previewPosts = allPosts.slice(0, 4);
 
   return (
     <div id="blog" className="blog-container">
       <div className="blog-header">
         <h1 className="blog-title">Blog</h1>
       </div>
-
       <div className="blog-content">
-        <article className="featured-post">
-          <div className="featured-badge">Latest</div>
-          <div className="featured-image">
-            <img
-              src={featuredPost?.image || './assets/placeholder.svg'}
-              alt={featuredPost?.title}
-            />
-          </div>
-          <div className="featured-content">
-            <div className="post-meta">
-              <span className="category">{featuredPost?.category}</span>
-              <span className="date">
-                {formatDate(featuredPost?.date || new Date().toISOString())}
-              </span>
-              <span className="read-time">{featuredPost?.readTime}</span>
-            </div>
-            <h2 className="featured-title">{featuredPost?.title}</h2>
-            <p className={`featured-excerpt${seeMore ? ' see-more' : ''}`}>{featuredPost?.excerpt}</p>
-
-            <button
-              className="see-more-btn"
-              onClick={() => setSeeMore((v) => !v)}
-              aria-expanded={seeMore}
-            >
-              {seeMore ? 'See Less' : 'See More'}
-            </button>
-            {isMobile && (
-              <div className="blog-preview-scroll">
-                {previewPosts.map((post) => (
-                  <div className="blog-preview-item" key={post.id}>
-                    <div className="blog-preview-image">
-                      <img
-                        src={post.image || './assets/placeholder.svg'}
-                        alt={post.title}
-                      />
-                    </div>
-                    <div className="blog-preview-title">{post.title}</div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+        <article className="blog-posts">
+          Hey there! This is where I document my adventures in the world of technology. From debugging nightmares to breakthrough moments, I share the real stories behind the code—plus insights I wish I'd known earlier in my career.
+          <div style={{ height: '20px' }}></div>
+          Exploring the intersection of code, creativity, and problem-solving. I write about software development, emerging technologies, and the lessons learned from building things that matter
         </article>
-
-        {!isMobile && (
-          <div className="related-posts">
-            <div className="related-grid">
-              <div className="featured-badge">Latest</div>
-              {allPosts.map((post) => (
-                <article key={post.id} className="related-post">
-                  <div className="related-image">
-                    <img
-                      src={post.image || './assets/placeholder.svg'}
-                      alt={post.title}
-                    />
-                  </div>
-                  <div className="related-content">
-                    <div className="post-meta">
-                      <span className="category">{post.category}</span>
-                      <span className="read-time">{post.readTime}</span>
-                    </div>
-                    <h4 className="related-post-title">{post.title}</h4>
-                    <p className="related-excerpt">{post.excerpt}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        )}
+        <GeometricCard
+          heading={''}
+          title={'All Posts 🖋️'}
+          action={'Read'}
+          tagline={'Collection of blog posts and articles'}
+          //customStyle={{ width: 360 }}
+          onClick={() => window.open('https://blog.israelprempeh.com', '_blank')}
+        />
       </div>
     </div>
   );
@@ -565,7 +503,7 @@ const calculateYearsOfExperience = (start = '2015-07-01') => {
   return diffYears;
 };
 
-type Results = [Bio, Project[], BlogPost[], ResumeProps];
+type Results = [Bio, Project[], ResumeProps];
 
 const getLocalState = () => {
   const stored = localStorage.getItem('isLoading');
@@ -579,7 +517,6 @@ const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(getLocalState());
   const [homePage, setHomePage] = useState<HomeData>({
     bio: { name: 'loading', description: '...', links: [], title: '...' },
-    blogPosts: [],
     experiences: { education: [], experience: [] },
     projects: [],
   });
@@ -596,11 +533,6 @@ const Home: React.FC = () => {
         action: () => portfolioAPI.getProjects().then(({ data }) => data),
       },
       {
-        name: 'Getting blog posts...',
-        action: () =>
-          portfolioAPI.getBlogPosts({ limit: 7 }).then(({ data }) => data),
-      },
-      {
         name: 'Loading experience...',
         action: () => portfolioAPI.getExperience().then(({ data }) => data),
       },
@@ -610,8 +542,8 @@ const Home: React.FC = () => {
 
   const handleComplete = (results: Results, state: ProgressLoaderState) => {
     // Safely destructure results with fallbacks
-    const [bio, projects, blogPosts, experiences] = results;
-    setHomePage({ bio, projects, blogPosts, experiences });
+    const [bio, projects, experiences] = results;
+    setHomePage({ bio, projects, experiences });
     setTimeout(() => {
       localStorage.setItem('isLoading', JSON.stringify(false));
       setIsLoading(false);
@@ -685,10 +617,10 @@ const Home: React.FC = () => {
         The only way to do great work is to love what you do.{' '}
         <span className="highlight"> — Steve Jobs</span>
       </p>
-      <BlogList data={homePage.blogPosts} />
-      <div className="portfolio-avatar">
-        <div className="circular-mask" style={{border:'unset'}}>
-          <img alt="avatar" height="100%"  src="assets/clayavatar.jpeg"/>
+      <Blog />
+      <div className="portfolio-avatar" style={{ height: 80, width: 80, margin: '10px auto' }}>
+        <div className="circular-mask" style={{ border: 'unset', height: '100%', width: '100%' }}>
+          <img alt="avatar" height="100%" src="assets/clayavatar.jpeg" />
         </div>
       </div>
     </>

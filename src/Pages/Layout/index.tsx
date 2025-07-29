@@ -9,7 +9,6 @@ import { isDev, logVercelEnvVars } from '../../utils/env-utils.js';
 import { RouteErrorDisplay } from '../ErrorBoundary/index.js';
 
 const Home = lazy(() => import('../Home/index.js'));
-const Blog = lazy(() => import('../Blog/index.js'));
 
 const adminUrl = 'http://localhost:4201/admin'; // Change to your admin port
 
@@ -46,7 +45,13 @@ const indexRoute = createRoute({
 const blogRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/blog',
-  component: Blog,
+  component: () => {
+    useEffect(() => {
+      window.location.href = 'https://blog.israelprempeh.com';
+    }, []);
+    
+    return <div>Redirecting to blog...</div>;
+  },
   errorComponent: ({ error }) => <RouteErrorDisplay error={error as Error} />
 });
 

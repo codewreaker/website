@@ -4,18 +4,6 @@ interface Link {
   url: string
 }
 
-
-interface BlogPost {
-  id: number;
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-  image: string;
-  featured?: boolean;
-}
-
 interface ResumeProps {
   education: EducationItem[];
   experience: ExperienceItem[];
@@ -65,5 +53,4 @@ interface HomeData {
   bio: Bio;
   projects: Project[];
   experiences: ResumeProps;
-  blogPosts: BlogPost[];
 }
