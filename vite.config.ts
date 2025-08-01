@@ -1,10 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import vercel from 'vite-plugin-vercel';
+import Sitemap from 'vite-plugin-sitemap'
 import path from 'node:path';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
+const hostname = 'https://www.israelagyeman.com';
+console.log(import.meta.url, 'url');
 
 console.log(__dirname, 'dir');
 export default defineConfig(() => ({
@@ -23,7 +27,12 @@ export default defineConfig(() => ({
     port: 4300,
     host: 'localhost',
   },
-  plugins: [react(), nodePolyfills()],
+  plugins: [
+    react(),
+    nodePolyfills(),
+    vercel(),
+    Sitemap({ hostname }),
+  ],
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],

@@ -8,7 +8,7 @@ import Terminal from '../../Components/Terminal/index.js';
 import GeometricCard from '../../Components/GeometricCard/index.js';
 import { scrollToSection } from '../../utils/scrollToSection.js';
 
-import { portfolioAPI } from '../../mock-service/api.js';
+import { portfolioAPI } from '../../content/api.js';
 
 import useProgressLoader, {
   ProgressLoaderState,
@@ -521,20 +521,24 @@ const Home: React.FC = () => {
     projects: [],
   });
 
+  const hdl = (data) => console.log('res', data)
   // Memoize steps to prevent recreation on every render
   const steps = useMemo<ProgressStep<Results>[]>(
     () => [
       {
         name: 'Loading bio...',
-        action: () => portfolioAPI.getBio().then(({ data }) => data),
+        //action: () => portfolioAPI.getBio().then(({ data }) => data),
+        action: () => portfolioAPI.getBio().then(hdl),
       },
       {
         name: 'Fetching projects...',
-        action: () => portfolioAPI.getProjects().then(({ data }) => data),
+        //action: () => portfolioAPI.getProjects().then(({ data }) => data),
+        action: () => portfolioAPI.getProjects().then(hdl),
       },
       {
         name: 'Loading experience...',
-        action: () => portfolioAPI.getExperience().then(({ data }) => data),
+        //action: () => portfolioAPI.getExperience().then(({ data }) => data),
+        action: () => portfolioAPI.getExperience().then(hdl),
       },
     ],
     []
@@ -564,7 +568,7 @@ const Home: React.FC = () => {
   });
 
   // Show loader while loading
-  if (isLoading) {
+  if (isLoading || Object.values(homePage).some((v) => v === undefined)) {
     return (
       <ProgressLoader
         state={progressState}

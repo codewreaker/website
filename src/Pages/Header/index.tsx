@@ -21,8 +21,7 @@ interface NavItem {
 const navConfig: NavItem[] = [
   { label: 'Projects', href: '#projects' },
   { label: 'CV', href: '#cv' },
-  { 
-    label: 'Blog', href: '/blog' },
+  { label: 'Blog', href: '/blog' },
   {
     label: 'Docs',
     href: 'https://docs.israelprempeh.com',
@@ -97,7 +96,7 @@ const Header = () => {
       <div className="header-content">
         <a href="/" style={{ textDecoration: 'none' }}>
           <div className="logo">
-            <img src="./assets/signature.png" alt="signature" width={'100%'} height={'100%'}/>
+            <img src="./assets/signature.png" alt="signature" width={'100%'} height={'100%'} />
           </div>
         </a>
         <button

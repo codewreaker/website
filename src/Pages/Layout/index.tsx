@@ -1,4 +1,4 @@
-import { RouterProvider, createRouter, createRootRoute, createRoute, Outlet } from '@tanstack/react-router';
+import { RouterProvider, createRouter, createRootRoute, createRoute, Outlet, redirect } from '@tanstack/react-router';
 import Header from '../Header/index.js';
 import Footer from '../Footer/index.js';
 import '../../styles.css';
@@ -27,7 +27,7 @@ const RootComponent = () => (
         <Outlet />
       </Suspense>
     </main>
-    {/* <Footer /> */}
+    <Footer />
   </>
 );
 
@@ -61,10 +61,22 @@ const adminRoute = createRoute({
   component: AdminRedirect,
 });
 
+const cvRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/cv',
+  beforeLoad: () => {
+    throw redirect({
+      to: '/',
+      hash: 'cv'
+    });
+  },
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   blogRoute,
   adminRoute,
+  cvRoute,
 ]);
 
 const router = createRouter({ routeTree });
@@ -79,28 +91,28 @@ const ERROR_MSG = 'Production environment detected: MSW initialization skipped. 
 
 
 export default function Layout() {
-  const [mockingStarted, setMockingStarted] = useState(false);
+  //const [mockingStarted, setMockingStarted] = useState(false);
   console.log(`======SETTING_UP=======`);
 
-  useEffect(() => {
-    // Start MSW in development
-    if (isDev) {
-      startMocking().then(() => {
-        setMockingStarted(true);
-        console.log('MSW mocking started');
-      });
-    } else {
-      // Log Vercel environment variables in production
-      logVercelEnvVars();
-      console.error(ERROR_MSG);
-      setMockingStarted(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Start MSW in development
+  //   if (isDev) {
+  //     startMocking().then(() => {
+  //       setMockingStarted(true);
+  //       console.log('MSW mocking started');
+  //     });
+  //   } else {
+  //     // Log Vercel environment variables in production
+  //     logVercelEnvVars();
+  //     console.error(ERROR_MSG);
+  //     setMockingStarted(true);
+  //   }
+  // }, []);
 
 
-  if (isDev && !mockingStarted) {
-    return <div>Setting Up MSW...</div>;
-  }
+  // if (isDev && !mockingStarted) {
+  //   return <div>Setting Up MSW...</div>;
+  // }
 
   return (
     <AnimationProvider>

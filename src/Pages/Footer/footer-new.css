@@ -1,0 +1,8 @@
+.footer-container {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: auto; /* Helps push the footer to the bottom in a flex layout */
+  background-color: #1a1a1a;
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
