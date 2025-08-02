@@ -11,6 +11,7 @@
         "build:serve": "VITE_PREPROD=true npx http-server ./dist"
     },
     "dependencies": {
+        "@emailjs/browser": "^4.4.1",
         "@heroicons/react": "^2.2.0",
         "@hono/node-server": "1.15.0",
         "@tanstack/react-router": "^1.122.0",
