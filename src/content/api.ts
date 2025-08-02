@@ -1,54 +1,4 @@
-// services/api.ts
-// Optimized API service using dynamic imports for better performance and SEO
 
-// Type definitions for better TypeScript support
-interface Bio {
-  name: string;
-  title: string;
-  description: string;
-  links: Array<{ label: string; url: string }>;
-}
-
-interface Project {
-  name: string;
-  description: string;
-  path: string;
-  key: string;
-}
-
-interface ExperienceItem {
-  period: string;
-  title: string;
-  company?: string;
-  school?: string;
-  description: string;
-  techStack?: string[];
-  fields?: string[];
-  subtitles?: string[];
-}
-
-interface ExperienceData {
-  education: ExperienceItem[];
-  experience: ExperienceItem[];
-}
-
-interface BlogPost {
-  id: number;
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-  image: string;
-  featured?: boolean;
-}
-
-interface PortfolioStats {
-  totalProjects: number;
-  yearsExperience: number;
-  totalBlogPosts: number;
-  githubRepos: number;
-}
 
 // Cache for loaded data to avoid re-importing
 const dataCache = new Map<string, any>();
@@ -81,7 +31,6 @@ export const portfolioAPI = {
   getBio: async (): Promise<Bio> => {
     return getCachedData('bio', async () => {
       const { bio } = await loadData();
-      console.log('Bio data loaded:', bio);
       return bio;
     });
   },
@@ -130,49 +79,11 @@ export const portfolioAPI = {
 
   // Get all blog posts
   getBlogPosts: async (): Promise<BlogPost[]> => {
+    //@todo implement an actual API call to fetch blog posts from github
+    // For now, we will use the static data from the data module
     return getCachedData('blogPosts', async () => {
       const { blogPosts } = await loadData();
-      return blogPosts || [];
-    });
-  },
-
-  // Get featured blog posts
-  getFeaturedBlogPosts: async (): Promise<BlogPost[]> => {
-    return getCachedData('featuredBlogPosts', async () => {
-      const { blogPosts } = await loadData();
-      return blogPosts.filter((post: BlogPost) => post.featured) || [];
-    });
-  },
-
-  // Get blog posts by category
-  getBlogPostsByCategory: async (category: string): Promise<BlogPost[]> => {
-    const cacheKey = `blogPosts_${category}`;
-    return getCachedData(cacheKey, async () => {
-      const { blogPosts } = await loadData();
-      return blogPosts.filter((post: BlogPost) => 
-        post.category.toLowerCase() === category.toLowerCase()
-      ) || [];
-    });
-  },
-
-  // Get recent blog posts (last N posts)
-  getRecentBlogPosts: async (limit: number = 3): Promise<BlogPost[]> => {
-    const cacheKey = `recentBlogPosts_${limit}`;
-    return getCachedData(cacheKey, async () => {
-      const { blogPosts } = await loadData();
-      return blogPosts
-        .sort((a: BlogPost, b: BlogPost) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .slice(0, limit) || [];
-    });
-  },
-
-  // Get single blog post by ID
-  getBlogPost: async (id: number): Promise<BlogPost | null> => {
-    const cacheKey = `blogPost_${id}`;
-    return getCachedData(cacheKey, async () => {
-      const { blogPosts } = await loadData();
-      const post = blogPosts.find((post: BlogPost) => post.id === id);
-      return post || null;
+      return blogPosts || [{id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6}];
     });
   },
 
@@ -199,14 +110,6 @@ export const portfolioAPI = {
     });
   },
 
-  // Get all unique blog categories
-  getBlogCategories: async (): Promise<string[]> => {
-    return getCachedData('blogCategories', async () => {
-      const { blogPosts } = await loadData();
-      const categories = [...new Set(blogPosts.map((post: BlogPost) => post.category))];
-      return categories.sort();
-    });
-  },
 
   // Get all tech stack items (from experience)
   getTechStack: async (): Promise<string[]> => {
@@ -241,17 +144,9 @@ export const portfolioAPI = {
   // Get data freshness (for cache invalidation)
   getDataTimestamp: (): number => {
     return Date.now();
-  },
+  }
 };
 
-// Export individual data loaders for specific use cases
-export const dataLoaders = {
-  // Synchronous data access (for SSR/SSG)
-  loadBioSync: () => loadData().then(({ bio }) => bio),
-  loadProjectsSync: () => loadData().then(({ tabProjects }) => tabProjects),
-  loadExperienceSync: () => loadData().then(({ experienceData }) => experienceData),
-  loadBlogPostsSync: () => loadData().then(({ blogPosts }) => blogPosts),
-};
 
 // Utility functions for SEO optimization
 export const seoUtils = {
@@ -278,25 +173,6 @@ export const seoUtils = {
       "sameAs": bio.links.map(link => link.url),
       "worksFor": experience[0]?.company,
     };
-  },
-
-  // Generate structured data for blog posts
-  generateBlogStructuredData: async () => {
-    const blogPosts = await portfolioAPI.getBlogPosts();
-    const bio = await portfolioAPI.getBio();
-
-    return blogPosts.map(post => ({
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": post.title,
-      "description": post.excerpt,
-      "datePublished": post.date,
-      "author": {
-        "@type": "Person",
-        "name": bio.name,
-      },
-      "category": post.category,
-    }));
   },
 };
 

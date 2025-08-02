@@ -10,7 +10,7 @@ const bio = {
     { label: 'Email', url: 'mailto:developer.prempeh@gmail.com' },
     { label: 'Instagram', url: 'https://instagram.com/israel.prempeh' },
   ],
-};
+} as Bio;
 
 const githubMono = 'https://github.com/codewreaker/adenta/tree/main/packages';
 

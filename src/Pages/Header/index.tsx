@@ -22,11 +22,11 @@ const navConfig: NavItem[] = [
   { label: 'Projects', href: '#projects' },
   { label: 'CV', href: '#cv' },
   { label: 'Blog', href: '/blog' },
-  {
-    label: 'Docs',
-    href: 'https://docs.israelprempeh.com',
-    external: true
-  },
+  // {
+  //   label: 'Docs',
+  //   href: 'https://docs.israelprempeh.com',
+  //   external: true
+  // },
   {
     label: 'GitHub',
     href: 'https://github.com/codewreaker',
@@ -40,7 +40,7 @@ const navConfig: NavItem[] = [
       </svg>
     ),
   },
-  { label: 'Admin', href: '/admin' },
+  // { label: 'Admin', href: '/admin' },
 ];
 
 const AnimationToggle: React.FC = () => {

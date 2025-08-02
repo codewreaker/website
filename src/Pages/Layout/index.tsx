@@ -2,9 +2,8 @@ import { RouterProvider, createRouter, createRootRoute, createRoute, Outlet, red
 import Header from '../Header/index.js';
 import Footer from '../Footer/index.js';
 import '../../styles.css';
-import { startMocking } from '../../mock-service/setup.js';
 import { AnimationProvider } from '../../context/AnimationContext.js';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { isDev, logVercelEnvVars } from '../../utils/env-utils.js';
 import { RouteErrorDisplay } from '../ErrorBoundary/index.js';
 
@@ -91,29 +90,6 @@ const ERROR_MSG = 'Production environment detected: MSW initialization skipped. 
 
 
 export default function Layout() {
-  //const [mockingStarted, setMockingStarted] = useState(false);
-  console.log(`======SETTING_UP=======`);
-
-  // useEffect(() => {
-  //   // Start MSW in development
-  //   if (isDev) {
-  //     startMocking().then(() => {
-  //       setMockingStarted(true);
-  //       console.log('MSW mocking started');
-  //     });
-  //   } else {
-  //     // Log Vercel environment variables in production
-  //     logVercelEnvVars();
-  //     console.error(ERROR_MSG);
-  //     setMockingStarted(true);
-  //   }
-  // }, []);
-
-
-  // if (isDev && !mockingStarted) {
-  //   return <div>Setting Up MSW...</div>;
-  // }
-
   return (
     <AnimationProvider>
       <RouterProvider router={router} />

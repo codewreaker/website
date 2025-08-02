@@ -4,10 +4,6 @@ interface Link {
   url: string
 }
 
-interface ResumeProps {
-  education: EducationItem[];
-  experience: ExperienceItem[];
-}
 
 interface EducationItem {
   period: string;
@@ -21,10 +17,12 @@ interface EducationItem {
 interface ExperienceItem {
   period: string;
   title: string;
-  company: string;
+  company?: string;
+  school?: string;
   description: string;
-  techStack: string[];
-  subtitles: string[];
+  techStack?: string[];
+  fields?: string[];
+  subtitles?: string[];
 }
 
 
@@ -52,5 +50,32 @@ interface Project {
 interface HomeData {
   bio: Bio;
   projects: Project[];
-  experiences: ResumeProps;
+  experiences: ExperienceData;
 }
+
+
+
+interface ExperienceData {
+  education: ExperienceItem[];
+  experience: ExperienceItem[];
+}
+
+interface BlogPost {
+  id: number;
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  category: string;
+  image: string;
+  featured?: boolean;
+}
+
+interface PortfolioStats {
+  totalProjects: number;
+  yearsExperience: number;
+  totalBlogPosts: number;
+  githubRepos: number;
+}
+
+type Results = [Bio, Project[], ExperienceData];

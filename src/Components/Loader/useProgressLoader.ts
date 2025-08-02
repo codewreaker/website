@@ -5,6 +5,10 @@ export interface ProgressStep<T = any> {
   action: () => Promise<T>;
 }
 
+export type ProgressSteps<T extends readonly unknown[]> = {
+  [K in keyof T]: ProgressStep<T[K]>;
+};
+
 export interface UseProgressLoaderOptions<T = any> {
   steps: ProgressStep<T>[];
   onComplete?: (results: T, state: ProgressLoaderState) => void;
@@ -79,7 +83,7 @@ const useProgressLoader = <T = any>({
         }));
 
         try {
-          const result = await step.action();
+          const result = await step.action();      
           results.push(result);
 
           // Call onStep callback

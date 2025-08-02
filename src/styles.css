@@ -14,11 +14,9 @@
   --font-inter: 'Inter', 'inter Fallback';
 
   /* Gradient calculation */
-  --color-bg-gradient: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--color-bg) 95%, white) 60%,
-    var(--color-primary) 100%
-  );
+  --color-bg-gradient: linear-gradient(135deg,
+      color-mix(in srgb, var(--color-bg) 95%, white) 60%,
+      var(--color-primary) 100%);
 
   /* Primary color variants */
   --color-primary-light: var(--color-primary);
@@ -29,21 +27,19 @@
 
   /* Shadow colors with opacity */
   --color-shadow: color-mix(in srgb, var(--color-primary) 10%, transparent);
-  --color-shadow-strong: color-mix(
-    in srgb,
-    var(--color-primary) 18%,
-    transparent
-  );
-  --color-shadow-light: color-mix(
-    in srgb,
-    var(--color-primary) 4%,
-    transparent
-  );
+  --color-shadow-strong: color-mix(in srgb,
+      var(--color-primary) 18%,
+      transparent);
+  --color-shadow-light: color-mix(in srgb,
+      var(--color-primary) 4%,
+      transparent);
   --color-shadow-tab: color-mix(in srgb, var(--color-primary) 8%, transparent);
 }
 
 body,
 html {
+  height: 100%;
+  box-sizing: border-box;
   background: var(--color-bg);
   color: var(--color-text);
   margin: 0;
@@ -54,17 +50,12 @@ html {
   scroll-behavior: smooth;
 }
 
-.layout-root {
-  min-height: 100vh;
-  background: var(--color-bg);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  position: relative;
-}
 
 .layout-content {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+  background: var(--color-bg);
   min-width: 350px;
   margin-inline: 10vw;
   margin-top: clamp(5%, 5vw + 2rem, 12%);
@@ -79,13 +70,11 @@ html {
 
 
 .gradient-bg {
-  background-image: repeating-linear-gradient(
-    315deg,
-    rgba(255, 255, 255, 0.05) 0px,
-    rgba(255, 255, 255, 0.05) 1px,
-    transparent 1px,
-    transparent 50%
-  );
+  background-image: repeating-linear-gradient(315deg,
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 50%);
   background-size: 10px 10px;
   background-attachment: fixed;
 }

@@ -13,11 +13,13 @@ import { portfolioAPI } from '../../content/api.js';
 import useProgressLoader, {
   ProgressLoaderState,
   ProgressStep,
+  ProgressSteps,
 } from '../../Components/Loader/useProgressLoader.js';
 import ProgressLoader from '../../Components/Loader/ProgressLoader.js';
 
 import './home.css';
 import { useAnimation } from '../../context/AnimationContext.js';
+import DecryptedText from '../../Components/DecryptedText/DecryptedText.js';
 
 // Icon Components
 const GitHubIcon = ({
@@ -125,7 +127,15 @@ const Hero: React.FC<{ data: Bio }> = ({ data }) => {
     <div className="portfolio-hero">
       <div className="portfolio-intro">
         <SpeechBubble direction="bottom">Hello I'm</SpeechBubble>
-        <h1 className="portfolio-name">{data?.name}</h1>
+        <h1 className="portfolio-name">
+          <DecryptedText
+            text={data?.name}
+            animateOn="view"
+            speed={150}
+            revealDirection="center"
+          />
+        </h1>
+
       </div>
 
       <div
@@ -243,7 +253,7 @@ const ExperienceItemComponent: React.FC<ExperienceItem> = ({
         ))}
         <p>{description}</p>
         <div className="tech-stack">
-          {techStack.map((tech, index) => (
+          {techStack?.map((tech, index) => (
             <span key={index} className="tech-tag">
               {tech}
             </span>
@@ -255,7 +265,7 @@ const ExperienceItemComponent: React.FC<ExperienceItem> = ({
 );
 
 // CV Section Component
-const CVSection: React.FC<{ data: ResumeProps }> = ({ data }) => {
+const CVSection: React.FC<{ data: ExperienceData }> = ({ data }) => {
   const { education, experience } = data;
   const [activeSection, setActiveSection] = useState('about');
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -503,7 +513,6 @@ const calculateYearsOfExperience = (start = '2015-07-01') => {
   return diffYears;
 };
 
-type Results = [Bio, Project[], ResumeProps];
 
 const getLocalState = () => {
   const stored = localStorage.getItem('isLoading');
@@ -521,24 +530,22 @@ const Home: React.FC = () => {
     projects: [],
   });
 
-  const hdl = (data) => console.log('res', data)
   // Memoize steps to prevent recreation on every render
-  const steps = useMemo<ProgressStep<Results>[]>(
+  const steps = useMemo<ProgressSteps<Results>>(
     () => [
       {
         name: 'Loading bio...',
         //action: () => portfolioAPI.getBio().then(({ data }) => data),
-        action: () => portfolioAPI.getBio().then(hdl),
+        action: () => portfolioAPI.getBio(),
       },
       {
         name: 'Fetching projects...',
-        //action: () => portfolioAPI.getProjects().then(({ data }) => data),
-        action: () => portfolioAPI.getProjects().then(hdl),
+        action: () => portfolioAPI.getProjects(),
       },
       {
         name: 'Loading experience...',
         //action: () => portfolioAPI.getExperience().then(({ data }) => data),
-        action: () => portfolioAPI.getExperience().then(hdl),
+        action: () => portfolioAPI.getExperience(),
       },
     ],
     []
@@ -560,6 +567,7 @@ const Home: React.FC = () => {
 
   // Use the custom hook
   const progressState = useProgressLoader({
+    //@ts-ignore
     steps,
     onComplete: handleComplete,
     onStep: handleStep,
@@ -568,7 +576,7 @@ const Home: React.FC = () => {
   });
 
   // Show loader while loading
-  if (isLoading || Object.values(homePage).some((v) => v === undefined)) {
+  if (isLoading) {
     return (
       <ProgressLoader
         state={progressState}
@@ -622,7 +630,7 @@ const Home: React.FC = () => {
         <span className="highlight"> — Steve Jobs</span>
       </p>
       <Blog />
-      <div className="portfolio-avatar" style={{ height: 80, width: 80, margin: '10px auto' }}>
+      <div className="portfolio-avatar" style={{ height: 80, width: 80, margin: '50px auto' }}>
         <div className="circular-mask" style={{ border: 'unset', height: '100%', width: '100%' }}>
           <img alt="avatar" height="100%" src="assets/clayavatar.jpeg" />
         </div>

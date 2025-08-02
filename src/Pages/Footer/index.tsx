@@ -1,1 +1,1 @@
-export { default } from './footer-one.js';
+export { default } from './footer-two.js';
