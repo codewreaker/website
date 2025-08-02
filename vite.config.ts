@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import vercel from 'vite-plugin-vercel';
 import Sitemap from 'vite-plugin-sitemap'
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -30,7 +29,6 @@ export default defineConfig(() => ({
   plugins: [
     react(),
     nodePolyfills(),
-    vercel(),
     Sitemap({ hostname }),
   ],
   // Uncomment this if you are using workers.
