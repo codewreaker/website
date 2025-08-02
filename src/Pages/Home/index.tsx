@@ -131,7 +131,7 @@ const Hero: React.FC<{ data: Bio }> = ({ data }) => {
           <DecryptedText
             text={data?.name}
             animateOn="view"
-            speed={150}
+            speed={100}
             revealDirection="center"
           />
         </h1>
