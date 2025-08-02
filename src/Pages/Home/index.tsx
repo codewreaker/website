@@ -129,6 +129,7 @@ const Hero: React.FC<{ data: Bio }> = ({ data }) => {
         <SpeechBubble direction="bottom">Hello I'm</SpeechBubble>
         <h1 className="portfolio-name">
           <DecryptedText
+            delay={{time: 500, after:true}} // Add a delay of 500ms before starting the animation
             text={data?.name}
             animateOn="view"
             speed={100}
@@ -562,7 +563,7 @@ const Home: React.FC = () => {
   };
 
   const handleStep = (index: number, step: ProgressStep, result: any) => {
-    console.log(`Step ${index + 1} completed:`, step.name, result);
+    //console.log(`Step ${index + 1} completed:`, step.name, result);
   };
 
   // Use the custom hook

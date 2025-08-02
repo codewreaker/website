@@ -5,7 +5,6 @@ const dataCache = new Map<string, any>();
 
 // Helper function to get cached data or load it dynamically
 const getCachedData = async <T>(key: string, loader: () => Promise<T>): Promise<T> => {
-  console.log(`Fetching data for key: ${key}`, dataCache);
   if (dataCache.has(key)) {
     return dataCache.get(key);
   }

@@ -3,9 +3,12 @@ import Header from '../Header/index.js';
 import Footer from '../Footer/index.js';
 import '../../styles.css';
 import { AnimationProvider } from '../../context/AnimationContext.js';
-import { lazy, Suspense, useEffect } from 'react';
-import { isDev, logVercelEnvVars } from '../../utils/env-utils.js';
+import { lazy, Suspense, useEffect, useMemo } from 'react';
+import {Analytics, AnalyticsProps} from "@vercel/analytics/react"
+import {SpeedInsights} from "@vercel/speed-insights/react"
+import type {SpeedInsightsProps} from '@vercel/speed-insights'
 import { RouteErrorDisplay } from '../ErrorBoundary/index.js';
+import { isProduction } from 'std-env'; 
 
 const Home = lazy(() => import('../Home/index.js'));
 
@@ -86,13 +89,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
-const ERROR_MSG = 'Production environment detected: MSW initialization skipped. Verify Vercel environment configuration and VITE_PREPROD flag for pre-production features.'
-
 
 export default function Layout() {
+
+  const analyticsProps = useMemo<AnalyticsProps>(() => {
+    return isProduction ? { mode: 'production' } : { mode: 'development'};
+  }, []);
+
+  const speedInsightsProps = useMemo<SpeedInsightsProps>(() => {
+    return isProduction ? { mode: 'production' } : { mode: 'development', debug: true };
+  }, []);
+
   return (
     <AnimationProvider>
       <RouterProvider router={router} />
+      <Analytics {...analyticsProps}/>
+      <SpeedInsights {...speedInsightsProps} />
     </AnimationProvider>
   );
 }

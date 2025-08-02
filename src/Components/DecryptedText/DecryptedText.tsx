@@ -30,6 +30,7 @@ interface DecryptedTextProps extends HTMLMotionProps<'span'> {
     parentClassName?: string
     encryptedClassName?: string
     animateOn?: 'view' | 'hover'
+    delay?: number | { time: number; after: boolean } // Enhanced delay prop
 }
 
 export default function DecryptedText({
@@ -44,6 +45,7 @@ export default function DecryptedText({
     parentClassName = '',
     encryptedClassName = '',
     animateOn = 'hover',
+    delay = 0, // Default to no delay, can be number or {time, after}
     ...props
 }: DecryptedTextProps) {
     const [displayText, setDisplayText] = useState<string>(text)
@@ -51,7 +53,15 @@ export default function DecryptedText({
     const [isScrambling, setIsScrambling] = useState<boolean>(false)
     const [revealedIndices, setRevealedIndices] = useState<Set<number>>(new Set())
     const [hasAnimated, setHasAnimated] = useState<boolean>(false)
+    const [shouldStartAnimation, setShouldStartAnimation] = useState<boolean>(false)
+    const [showOriginalFirst, setShowOriginalFirst] = useState<boolean>(false)
     const containerRef = useRef<HTMLSpanElement>(null)
+    const delayTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+    // Parse delay configuration
+    const delayConfig = typeof delay === 'number' 
+        ? { time: delay, after: false } 
+        : { time: delay?.time || 0, after: delay?.after || false }
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
@@ -128,7 +138,8 @@ export default function DecryptedText({
             }
         }
 
-        if (isHovering) {
+        // Only start scrambling if shouldStartAnimation is true
+        if (isHovering && shouldStartAnimation && !showOriginalFirst) {
             setIsScrambling(true)
             interval = setInterval(() => {
                 setRevealedIndices((prevRevealed) => {
@@ -156,10 +167,12 @@ export default function DecryptedText({
                     }
                 })
             }, speed)
-        } else {
+        } else if (!isHovering) {
             setDisplayText(text)
             setRevealedIndices(new Set())
             setIsScrambling(false)
+            setShouldStartAnimation(false)
+            setShowOriginalFirst(false)
         }
 
         return () => {
@@ -167,6 +180,8 @@ export default function DecryptedText({
         }
     }, [
         isHovering,
+        shouldStartAnimation,
+        showOriginalFirst,
         text,
         speed,
         maxIterations,
@@ -175,6 +190,37 @@ export default function DecryptedText({
         characters,
         useOriginalCharsOnly,
     ])
+
+    // Handle delay when animation should start
+    useEffect(() => {
+        if (isHovering && !shouldStartAnimation) {
+            if (delayConfig.time > 0) {
+                if (delayConfig.after) {
+                    // Show original text first, then start scrambling after delay
+                    setShowOriginalFirst(true)
+                    setDisplayText(text)
+                    delayTimeoutRef.current = setTimeout(() => {
+                        setShowOriginalFirst(false)
+                        setShouldStartAnimation(true)
+                    }, delayConfig.time)
+                } else {
+                    // Wait for delay before starting scrambling (no original text shown)
+                    delayTimeoutRef.current = setTimeout(() => {
+                        setShouldStartAnimation(true)
+                    }, delayConfig.time)
+                }
+            } else {
+                setShouldStartAnimation(true)
+            }
+        }
+
+        return () => {
+            if (delayTimeoutRef.current) {
+                clearTimeout(delayTimeoutRef.current)
+                delayTimeoutRef.current = null
+            }
+        }
+    }, [isHovering, delayConfig.time, delayConfig.after, text])
 
     useEffect(() => {
         if (animateOn !== 'view') return
