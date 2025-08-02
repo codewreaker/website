@@ -3,6 +3,7 @@ import emailjs from '@emailjs/browser';
 import './contact.css'; // Assuming you have a CSS file for styling
 import { isDevelopment } from 'std-env';
 
+
 export default function ContactForm() {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
@@ -26,50 +27,45 @@ export default function ContactForm() {
         setIsSubmitting(true);
 
         try {
+
             // EmailJS configuration
-            const serviceId = process?.env?.EMAIL_SERVICE_ID || import.meta.env?.EMAIL_SERVICE_ID; // Replace with your EmailJS service ID
-            const templateId = process?.env?.EMAIL_TEMPLATE_ID || import.meta.env?.EMAIL_TEMPLATE_ID; // Replace with your EmailJS template ID
-            const publicKey = process?.env?.EMAIL_PUBLIC_KEY || import.meta.env?.EMAIL_PUBLIC_KEY; // Replace with your EmailJS public key
+            const serviceId = import.meta.env?.VITE_EMAIL_SERVICE_ID; // Replace with your EmailJS service ID
+            const templateId = import.meta.env?.VITE_EMAIL_TEMPLATE_ID; // Replace with your EmailJS template ID
+            const publicKey = import.meta.env?.VITE_EMAIL_PUBLIC_KEY; // Replace with your EmailJS public key
 
-            if (isDevelopment) {
-                console.log('EmailJS Configuration:', {
-                    serviceId,
-                    templateId,
-                    publicKey
-                });
-
+            const env_keys = {
+                serviceId,
+                templateId,
+                publicKey,
             }
 
             // Prepare template parameters
             const templateParams = {
-                to_email: 'developer.prempeh@gmail.com',
-                cc_email: 'israel.agyeman.prempeh@gmail.com',
-                from_name: formData.name,
-                from_email: formData.email,
+                name: formData.name,
+                email: formData.email,
                 subject: `New Contact Form Submission from ${formData.name}`,
-                message: formData.message,
-                submission_date: new Date().toLocaleString(),
                 // Additional formatting for better email display
-                formatted_message: `
+                message: `
+——————————————————————
 Contact Details:
 Name: ${formData.name}
 Email: ${formData.email}
-Submitted: ${new Date().toLocaleString()}
 
 Message:
 ${formData.message}
                 `.trim()
             };
 
+
             // Send email using EmailJS
             const response = await emailjs.send(
-                serviceId,
-                templateId,
+                env_keys.serviceId,
+                env_keys.templateId,
                 templateParams,
-                publicKey
+                { publicKey: env_keys.publicKey }
             );
 
-            console.log('Email sent successfully:', response);
+           isDevelopment && console.debug( response);
 
             setIsSubmitting(false);
             setSubmitted(true);

@@ -17,20 +17,12 @@
   }
 
   & .logo {
-    font-weight: bold;
-    color: var(--color-text);
-    width: 40px;
+    width: 35px;
     height: auto;
-    filter: brightness(0) invert(1);
     opacity: 0.9;
 
-    & span {
-      font-size: 1.5rem;
-      background: var(--color-bg-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 1.8rem;
+    img {
+      border-radius: 50%;
     }
   }
 

@@ -10,6 +10,7 @@ import './header.css';
 import ThemeToggle from './ThemeToggle.js';
 import { useAnimation } from '../../context/AnimationContext.js';
 import { Link } from '@tanstack/react-router';
+import { isDevelopment } from 'std-env';
 
 interface NavItem {
   label: string;
@@ -96,7 +97,7 @@ const Header = () => {
       <div className="header-content">
         <a href="/" style={{ textDecoration: 'none' }}>
           <div className="logo">
-            <img src="./assets/signature.png" alt="signature" width={'100%'} height={'100%'} />
+            <img src="./assets/logo.ico" alt="signature" width={'100%'} height={'100%'} />
           </div>
         </a>
         <button
@@ -126,7 +127,7 @@ const Header = () => {
                 )}
               </li>
             ))}
-            <li className="utility-toggle-container">
+            {isDevelopment && <li className="utility-toggle-container">
               <ThemeToggle
                 onToggle={toggleTheme}
                 isPrimary={isDark}
@@ -146,7 +147,7 @@ const Header = () => {
                 }}
               />
               <AnimationToggle />
-            </li>
+            </li>}
           </ul>
         </nav>
       </div>
