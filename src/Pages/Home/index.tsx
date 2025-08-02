@@ -129,7 +129,7 @@ const Hero: React.FC<{ data: Bio }> = ({ data }) => {
         <SpeechBubble direction="bottom">Hello I'm</SpeechBubble>
         <h1 className="portfolio-name">
           <DecryptedText
-            delay={{time: 500, after:true}} // Add a delay of 500ms before starting the animation
+            delay={{ time: 500, after: true }} // Add a delay of 500ms before starting the animation
             text={data?.name}
             animateOn="view"
             speed={100}
@@ -279,6 +279,7 @@ const CVSection: React.FC<{ data: ExperienceData }> = ({ data }) => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
 
   // Helper to render subtitle with See More
   const renderSubtitle = () => (
@@ -526,7 +527,7 @@ const getLocalState = () => {
 const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(getLocalState());
   const [homePage, setHomePage] = useState<HomeData>({
-    bio: { name: 'loading', description: '...', links: [], title: '...' },
+    bio: { name: 'Israel Agyeman-Prempeh', description: '...', links: [], title: '...' },
     experiences: { education: [], experience: [] },
     projects: [],
   });
