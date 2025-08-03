@@ -29,8 +29,8 @@ export default function ContactForm() {
         try {
 
             // EmailJS configuration
-            const serviceId = import.meta.env?.VITE_EMAIL_SERVICE_ID; // Replace with your EmailJS service ID
-            const templateId = import.meta.env?.VITE_EMAIL_TEMPLATE_ID; // Replace with your EmailJS template ID
+            const serviceId = import.meta.env?.EMAIL_SERVICE_ID; // Replace with your EmailJS service ID
+            const templateId = import.meta.env?.EMAIL_TEMPLATE_ID; // Replace with your EmailJS template ID
             const publicKey = import.meta.env?.VITE_EMAIL_PUBLIC_KEY; // Replace with your EmailJS public key
 
             const env_keys = {

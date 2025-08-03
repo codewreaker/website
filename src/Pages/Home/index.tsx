@@ -5,7 +5,7 @@ import type React from 'react';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { SpeechBubble } from '../../Components/SpeechBubble/index.js';
 import Terminal from '../../Components/Terminal/index.js';
-import Contact from '../../Components/Contact/index.js';
+// import Contact from '../../Components/Contact/index.js';
 import GeometricCard from '../../Components/GeometricCard/index.js';
 import { scrollToSection } from '../../utils/scrollToSection.js';
 
@@ -633,7 +633,7 @@ const Home: React.FC = () => {
         <span className="highlight"> — Steve Jobs</span>
       </p>
       <Blog />
-      <Contact/>
+      {/* <Contact/> */}
     </>
   );
 };
