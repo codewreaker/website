@@ -2,22 +2,14 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import Sitemap from 'vite-plugin-sitemap'
-import path from 'node:path';
-import { createRequire } from 'node:module';
+import vercel from 'vite-plugin-vercel';
 
-const require = createRequire(import.meta.url);
+
 const hostname = 'https://www.israelagyeman.com';
-console.log(import.meta.url, 'url');
 
-console.log(__dirname, 'dir');
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/packages/website',
-  resolve: {
-    alias: {
-      ['msw/native']: require.resolve(path.resolve('./node_modules/msw/lib/native/index.mjs')),
-    },
-  },
   server: {
     port: 4200,
     host: 'localhost',
@@ -30,6 +22,7 @@ export default defineConfig(() => ({
     react(),
     nodePolyfills(),
     Sitemap({ hostname }),
+    vercel(),
   ],
   // Uncomment this if you are using workers.
   // worker: {
