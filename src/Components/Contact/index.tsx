@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './contact.css'; // Assuming you have a CSS file for styling
 import { isDevelopment } from 'std-env';
 
+const API_URL = isDevelopment ? 'http://localhost:3001/api/send-email' : '/api/send-email'; 
 
 export default function ContactForm() {
     const [open, setOpen] = useState(false);
@@ -12,6 +13,7 @@ export default function ContactForm() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState<any>(null);
 
     const handleInputChange = (e: any) => {
         const { name, value } = e.target;
@@ -26,7 +28,7 @@ export default function ContactForm() {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('/api/send-email', {
+            const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -35,7 +37,10 @@ export default function ContactForm() {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to send message');
+                const errorData = await response.json();
+                const error = new Error(errorData.message);
+                error.stack = errorData.stack;
+                throw error;
             }
 
             setIsSubmitting(false);
@@ -47,12 +52,10 @@ export default function ContactForm() {
                 setOpen(false);
                 setFormData({ name: '', email: '', message: '' });
             }, 3000);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error sending email:', error);
             setIsSubmitting(false);
-
-            // Show user-friendly error message
-            alert('Failed to send message. Please try again or contact me directly at developer.prempeh@gmail.com');
+            setError(error);
         }
     };
 
@@ -60,6 +63,7 @@ export default function ContactForm() {
         setOpen(false);
         setSubmitted(false);
         setFormData({ name: '', email: '', message: '' });
+        setError(null);
     };
 
     return (
@@ -76,7 +80,15 @@ export default function ContactForm() {
             {open && (
                 <div className="contact-overlay" onClick={(e) => e.target === e.currentTarget && closeForm()}>
                     <div className="contact-form">
-                        {submitted ? (
+                        {error ? (
+                            <div className="error-message">
+                                <div className="error-icon">🔥</div>
+                                <div className="error-text">Error</div>
+                                <div className="error-subtext">{error.message}</div>
+                                <pre className="error-stack">{error.stack}</pre>
+                                <button onClick={() => setError(null)} className="close-button">Close</button>
+                            </div>
+                        ) : submitted ? (
                             <div className="success-message">
                                 <div className="success-icon">🎉</div>
                                 <div className="success-text">Message sent successfully!</div>

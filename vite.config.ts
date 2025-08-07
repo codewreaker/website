@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import Sitemap from 'vite-plugin-sitemap'
-import vercel from 'vite-plugin-vercel';
+//import vercel from 'vite-plugin-vercel';
 
 
 const hostname = 'https://www.israelagyeman.com';
@@ -22,7 +22,7 @@ export default defineConfig(() => ({
     react(),
     nodePolyfills(),
     Sitemap({ hostname }),
-    vercel(),
+    //vercel(),
   ],
   // Uncomment this if you are using workers.
   // worker: {

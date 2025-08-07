@@ -16,7 +16,7 @@ importers:
         version: 2.2.0(react@19.0.0)
       '@hono/node-server':
         specifier: 1.15.0
-        version: 1.15.0(hono@4.8.9)
+        version: 1.15.0(hono@4.8.12)
       '@tanstack/react-router':
         specifier: ^1.122.0
         version: 1.129.9(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -32,6 +32,9 @@ importers:
       framer-motion:
         specifier: ^12.6.0
         version: 12.23.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      hono:
+        specifier: ^4.8.12
+        version: 4.8.12
       nodemailer:
         specifier: ^7.0.5
         version: 7.0.5
@@ -1781,8 +1784,8 @@ packages:
   hmac-drbg@1.0.1:
     resolution: {integrity: sha512-Tti3gMqLdZfhOQY1Mzf/AanLiqh1WTiJgEj26ZuYQ9fbkLomzGchCws4FyrSd4VkpBfiNhaE1On+lOz894jvXg==}
 
-  hono@4.8.9:
-    resolution: {integrity: sha512-ERIxkXMRhUxGV7nS/Af52+j2KL60B1eg+k6cPtgzrGughS+espS9KQ7QO0SMnevtmRlBfAcN0mf1jKtO6j/doA==}
+  hono@4.8.12:
+    resolution: {integrity: sha512-MQSKk1Mg7b74k8l+A025LfysnLtXDKkE4pLaSsYRQC5iy85lgZnuyeQ1Wynair9mmECzoLu+FtJtqNZSoogBDQ==}
     engines: {node: '>=16.9.0'}
 
   https-browserify@1.0.0:
@@ -3021,9 +3024,9 @@ snapshots:
     dependencies:
       react: 19.0.0
 
-  '@hono/node-server@1.15.0(hono@4.8.9)':
+  '@hono/node-server@1.15.0(hono@4.8.12)':
     dependencies:
-      hono: 4.8.9
+      hono: 4.8.12
 
   '@humanfs/core@0.19.1': {}
 
@@ -4393,7 +4396,7 @@ snapshots:
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
 
-  hono@4.8.9: {}
+  hono@4.8.12: {}
 
   https-browserify@1.0.0: {}
 

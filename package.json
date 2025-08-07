@@ -5,7 +5,9 @@
     "main": "./src/index.js",
     "types": "./src/index.d.ts",
     "scripts": {
-        "dev": "vite dev",
+        "dev": "concurrently \"pnpm:dev:vite\" \"pnpm:dev:api\"",
+        "dev:vite": "vite",
+        "dev:api": "tsx --env-file=.env ./src/server.ts",
         "build": "vite build",
         "build:watch": "vite build --watch",
         "build:serve": "VITE_PREPROD=true npx http-server ./dist"
@@ -15,10 +17,12 @@
         "@heroicons/react": "^2.2.0",
         "@hono/node-server": "1.15.0",
         "@tanstack/react-router": "^1.122.0",
+        "@vercel/node": "^5.3.11",
         "@vercel/analytics": "^1.5.0",
         "@vercel/speed-insights": "^1.2.0",
         "@vitejs/plugin-react-swc": "^3.5.0",
         "framer-motion": "^12.6.0",
+        "hono": "^4.8.12",
         "nodemailer": "^7.0.5",
         "react": "19.0.0",
         "react-dom": "19.0.0",
@@ -34,10 +38,9 @@
         "@types/nodemailer": "^6.4.17",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
-        "@vercel/node": "^5.3.11",
         "concurrently": "^7.6.0",
         "tsx": "^4.20.0",
-        "vitest": "^3.2.4",
-        "vite-plugin-vercel":"^9.0.7"
+        "vite-plugin-vercel": "^9.0.7",
+        "vitest": "^3.2.4"
     }
 }
