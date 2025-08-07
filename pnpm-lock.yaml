@@ -23,6 +23,9 @@ importers:
       '@vercel/analytics':
         specifier: ^1.5.0
         version: 1.5.0(react@19.0.0)
+      '@vercel/node':
+        specifier: ^5.3.11
+        version: 5.3.11(@swc/core@1.13.2)(rollup@4.45.3)
       '@vercel/speed-insights':
         specifier: ^1.2.0
         version: 1.2.0(react@19.0.0)
@@ -75,9 +78,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.0
         version: 19.1.6(@types/react@19.1.8)
-      '@vercel/node':
-        specifier: ^5.3.11
-        version: 5.3.11(@swc/core@1.13.2)(rollup@4.45.3)
       concurrently:
         specifier: ^7.6.0
         version: 7.6.0

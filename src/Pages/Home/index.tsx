@@ -22,6 +22,7 @@ import './home.css';
 import { useAnimation } from '../../context/AnimationContext.js';
 import DecryptedText from '../../Components/DecryptedText/DecryptedText.js';
 
+
 // Icon Components
 const GitHubIcon = ({
   width = 20,
