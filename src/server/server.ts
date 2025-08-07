@@ -1,80 +1,54 @@
-// api/send-email.ts
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { Hono } from 'hono';
+import { serve } from '@hono/node-server';
 import nodemailer from 'nodemailer';
+import { cors } from 'hono/cors';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-    // Handle CORS
-    const origin = req.headers.origin;
-    const allowedOrigins = [
-        'http://localhost:3000',
-        'http://localhost:5173', // Vite dev server
-        'http://127.0.0.1:5500', // Live Server
-        'https://israelprempeh.com', // Replace with your actual domain
-        'https://blog.israelprempeh.com', // 
-        'https://docs.israelprempeh.com', // 
-        // Add other allowed origins as needed
-    ];
+const app = new Hono();
 
-    const corsHeaders = {
-        'Access-Control-Allow-Origin': allowedOrigins.includes(origin || '') ? origin! : '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    };
+app.use('/api/*', cors());
 
-    // Set CORS headers
-    Object.entries(corsHeaders).forEach(([key, value]) => {
-        res.setHeader(key, value);
-    });
+app.post('/api/send-email', async (c) => {
+  const { name, email, message } = await c.req.json();
 
-    // Handle OPTIONS request for CORS preflight
-    if (req.method === 'OPTIONS') {
-        return res.status(200).end();
-    }
+  if (!name || !email || !message) {
+    return c.json({ message: 'Missing required fields' }, 400);
+  }
 
-    // Only allow POST requests
-    if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'Method not allowed' });
-    }
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.GOOGLE_PASSWORD,
+    },
+  });
 
-    try {
-        const { name, email, message } = req.body;
 
-        if (!name || !email || !message) {
-            return res.status(400).json({ message: 'Missing required fields' });
-        }
+    const from = `Contact Form <${process.env.EMAIL_USER}>`;
+  const to = process.env.EMAIL_USER; // Change to your receiving email address
+  const replyTo = email;
+  const subject = `New Contact Form Submission from ${name}`;
 
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.GOOGLE_PASSWORD,
-            },
-        });
+  const mailOptions = {
+    from,
+    to, 
+    replyTo,
+    subject,
+    html: emailTemplate(name, from, subject, message),
+  };
 
-        const from = `Contact Form <${process.env.EMAIL_USER}>`;
-        const to = process.env.EMAIL_USER;
-        const replyTo = email;
-        const subject = `New Contact Form Submission from ${name}`;
+  try {
+    await transporter.sendMail(mailOptions);
+    return c.json({ message: 'Email sent successfully' });
+  } catch (error: any) {
+    console.error(error);
+    return c.json({ message: error.message, stack: error.stack }, 500);
+  }
+});
 
-        const mailOptions = {
-            from,
-            to,
-            replyTo,
-            subject,
-            html: emailTemplate(name, email, subject, message),
-        };
-
-        await transporter.sendMail(mailOptions);
-
-        return res.status(200).json({ message: 'Email sent successfully' });
-    } catch (error: any) {
-        console.error(error);
-        return res.status(500).json({
-            message: error.message,
-            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-        });
-    }
-}
+serve({
+  fetch: app.fetch,
+  port: 3001,
+});
 
 
 const emailTemplate = (name: string, email: string, subject: string, message: string) => `

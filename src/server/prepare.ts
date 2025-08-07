@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+import juice from 'juice';
+
+const subject = '{{subject}}';
+const name = '{{name}}';
+const email = '{{email}}';
+const message = '{{message}}';
+const timestamp = '{{timestamp}}';
+
+import fs from 'node:fs';
+import {resolve} from 'node:path';
+
+const inlined = juice(`
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -253,12 +264,12 @@
                     <div class="contact-header">
                         <div class="contact-label">FROM</div>
                         <div class="contact-actions">
-                            <a href="mailto:sarah.johnson@techstartup.com" class="reply-btn">REPLY</a>
+                            <a href="mailto:${email}" class="reply-btn">REPLY</a>
                         </div>
                     </div>
                     <div class="contact-name">${name}</div>
                     <div class="contact-email">
-                        <a href="mailto:sarah.johnson@techstartup.com" class="email-link">${from}</a>
+                        <a href="mailto:${email}" class="email-link">${email}</a>
                     </div>
                 </div>
                 <div class="field-row">
@@ -279,4 +290,10 @@
         </div>
     </div>
 </body>
-</html>
+</html>`);
+
+
+
+// Output or send via nodemailer
+fs.writeFileSync(resolve('./dist/inlined.html'), inlined);
+console.log('Email template prepared successfully');
