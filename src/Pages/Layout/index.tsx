@@ -9,6 +9,7 @@ import {SpeedInsights} from "@vercel/speed-insights/react"
 import type {SpeedInsightsProps} from '@vercel/speed-insights'
 import { RouteErrorDisplay } from '../ErrorBoundary/index.js';
 import { isProduction } from 'std-env'; 
+import SEO from '../../Components/SEO/index.js';
 
 const Home = lazy(() => import('../Home/index.js'));
 
@@ -23,6 +24,7 @@ function AdminRedirect() {
 
 const RootComponent = () => (
   <>
+    <SEO />
     <Header />
     <main className="layout-content">
       <Suspense fallback={<div>Loading...</div>}>
@@ -52,7 +54,16 @@ const blogRoute = createRoute({
       window.location.href = 'https://blog.israelprempeh.com';
     }, []);
     
-    return <div>Redirecting to blog...</div>;
+    return (
+      <>
+        <SEO 
+          title="Blog - Israel Prempeh | Full Stack Developer"
+          description="Read articles and tutorials on React, TypeScript, and modern web development practices."
+          url="https://www.israelagyeman.com/blog"
+        />
+        <div>Redirecting to blog...</div>
+      </>
+    );
   },
   errorComponent: ({ error }) => <RouteErrorDisplay error={error as Error} />
 });
@@ -66,6 +77,16 @@ const adminRoute = createRoute({
 const cvRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/cv',
+  component: () => (
+    <>
+      <SEO 
+        title="Curriculum Vitae - Israel Prempeh"
+        description="View the professional experience, education, and skills of Israel Prempeh, Full Stack Developer."
+        url="https://www.israelagyeman.com/cv"
+      />
+      <div>Redirecting to CV...</div>
+    </>
+  ),
   beforeLoad: () => {
     throw redirect({
       to: '/',
