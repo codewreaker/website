@@ -504,6 +504,7 @@ const Blog = () => {
           onClick={() => window.open('https://blog.israelprempeh.com', '_blank')}
         />
       </div>
+      {/** Create Featured Here */}
     </div>
   );
 };
