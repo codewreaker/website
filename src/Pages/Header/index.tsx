@@ -20,9 +20,9 @@ interface NavItem {
 }
 
 const navConfig: NavItem[] = [
-  { label: 'Projects', href: '#projects' },
   { label: 'CV', href: '#cv' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Blog', href: '#blog' },
   // {
   //   label: 'Docs',
   //   href: 'https://docs.israelprempeh.com',

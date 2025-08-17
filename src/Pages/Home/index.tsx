@@ -191,7 +191,7 @@ const Hero: React.FC<{ data: Bio }> = ({ data }) => {
       </div>
       <div
         className="scroll-indicator"
-        onClick={scrollToSection('projects', null, 100)}
+        onClick={scrollToSection('cv', null, 100)}
       >
         <img src="./assets/scroll-lottie.gif" alt="scroll" />
       </div>
@@ -627,14 +627,14 @@ const Home: React.FC = () => {
   return (
     <>
       <Hero data={homePage.bio} />
-      <Projects data={homePage.projects} />
       <CVSection data={homePage.experiences} />
+      <Projects data={homePage.projects} />
       <p className="quote">
         The only way to do great work is to love what you do.{' '}
         <span className="highlight"> — Steve Jobs</span>
       </p>
       <Blog />
-      <Contact/>
+      <Contact />
     </>
   );
 };
