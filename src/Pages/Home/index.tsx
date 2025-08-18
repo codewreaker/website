@@ -8,6 +8,7 @@ import Terminal from '../../Components/Terminal/index.js';
 import Contact from '../../Components/Contact/index.js';
 import GeometricCard from '../../Components/GeometricCard/index.js';
 import { scrollToSection } from '../../utils/scrollToSection.js';
+import './home.css';
 
 import { portfolioAPI } from '../../content/api.js';
 
@@ -21,6 +22,7 @@ import ProgressLoader from '../../Components/Loader/ProgressLoader.js';
 import './home.css';
 import { useAnimation } from '../../context/AnimationContext.js';
 import DecryptedText from '../../Components/DecryptedText/DecryptedText.js';
+import Blog from '../Blog/index.js';
 
 
 // Icon Components
@@ -473,41 +475,7 @@ African and London university candidates. This program was overseen by the CTO.
   );
 };
 
-// Blog Section Component
-const Blog = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 480);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
-
-  return (
-    <div id="blog" className="blog-container">
-      <div className="blog-header">
-        <h1 className="blog-title">Blog</h1>
-      </div>
-      <div className="blog-content">
-        <article className="blog-posts">
-          Hey there! This is where I document my adventures in the world of technology. From debugging nightmares to breakthrough moments, I share the real stories behind the code—plus insights I wish I'd known earlier in my career.
-          <div style={{ height: '20px' }}></div>
-          Exploring the intersection of code, creativity, and problem-solving. I write about software development, emerging technologies, and the lessons learned from building things that matter
-        </article>
-        <GeometricCard
-          heading={''}
-          title={'All Posts 🖋️'}
-          action={'Read'}
-          tagline={'Collection of blog posts and articles'}
-          //customStyle={{ width: 360 }}
-          onClick={() => window.open('https://blog.israelprempeh.com', '_blank')}
-        />
-      </div>
-      {/** Create Featured Here */}
-    </div>
-  );
-};
 
 // Calculate years of experience since July 2015
 const calculateYearsOfExperience = (start = '2015-07-01') => {

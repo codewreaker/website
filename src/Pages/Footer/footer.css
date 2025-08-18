@@ -4,7 +4,7 @@
   height: 150px;
   background: none repeat scroll 0% 0% #1e1e1e;
   color: #ffffff;
-  padding: clamp(0.5rem, 2vw, 0.8rem) clamp(0.5rem, 2vw, 2rem);
+  /*padding: clamp(0.5rem, 2vw, 0.8rem) clamp(0.5rem, 2vw, 2rem);*/
   border-top: 1px solid #333;
   font-size: clamp(0.7rem, 2vw, 1.1rem);
 }

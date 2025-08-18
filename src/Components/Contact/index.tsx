@@ -2,7 +2,9 @@ import { useState } from 'react';
 import './contact.css'; // Assuming you have a CSS file for styling
 import { isDevelopment } from 'std-env';
 
-const API_URL = isDevelopment ? 'http://localhost:3001/api/send-email' : '/api/send-email'; 
+
+
+const API_URL = isDevelopment ? 'http://localhost:3001/api/send-email' : '/api/send-email';
 
 export default function ContactForm() {
     const [open, setOpen] = useState(false);
@@ -72,6 +74,7 @@ export default function ContactForm() {
                 onClick={() => setOpen(!open)}
                 className="portfolio-avatar contact-avatar"
             >
+                <span className="contact-icon">{"Contact Me * ".repeat(3)}</span>
                 <div className="circular-mask" style={{ border: 'unset', height: '100%', width: '100%' }}>
                     <img alt="avatar" height="100%" src="assets/clayavatar.jpeg" />
                 </div>
@@ -97,7 +100,7 @@ export default function ContactForm() {
                         ) : (
                             <>
                                 <div className="form-header">
-                                    <h3 className="form-title">Create Ticket</h3>
+                                    <h3 className="form-title">Send Message</h3>
                                     <button
                                         type="button"
                                         className="close-button"

@@ -1,0 +1,114 @@
+.featured-blog-post {
+  background: var(--color-bg);
+  border: 1px solid var(--color-shadow);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.featured-blog-post:hover {
+  background: var(--color-tab-bg);
+  border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  box-shadow: 0 8px 32px var(--color-shadow);
+  transform: translateY(-2px);
+}
+
+.featured-blog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.featured-blog-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.featured-blog-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.featured-date {
+  font-size: 12px;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-text-secondary) 80%, transparent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.featured-blog-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.featured-blog-post:hover .featured-blog-title {
+  color: var(--color-primary);
+}
+
+.featured-blog-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.featured-blog-footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.featured-blog-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.featured-blog-link:hover {
+  color: var(--color-primary-light);
+  transform: translateX(4px);
+}
+
+.featured-blog-link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.featured-blog-post:hover .featured-blog-link svg {
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 768px) {
+  .featured-blog-title {
+    font-size: 20px;
+  }
+
+  .featured-blog-description {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .featured-blog-post {
+    padding: 16px;
+  }
+
+  .featured-blog-title {
+    font-size: 18px;
+  }
+}

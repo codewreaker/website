@@ -1,6 +1,6 @@
 .portfolio-avatar.contact-avatar {
-    height: 80px;
-    width: 80px;
+    height: auto;
+    width: 150px;
     margin: 50px auto;
     cursor: pointer;
 }
