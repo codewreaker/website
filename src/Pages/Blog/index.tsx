@@ -1,16 +1,10 @@
-import { useEffect, useState } from 'react';
 import './blog.css';
 import GeometricCard from '../../Components/GeometricCard/index.js';
+import useIsMobile from '../../utils/hooks/useIsMobile.js';
 
 // Blog Section Component
 const Blog = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 480);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
 
   return (

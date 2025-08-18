@@ -1,12 +1,17 @@
-import { useState } from 'react';
-import './contact.css'; // Assuming you have a CSS file for styling
+import { useMemo, useState } from 'react';
+import './contact.css';
 import { isDevelopment } from 'std-env';
+import CircularText from '../CircularText/index.js';
+import { useAnimation } from '../../context/AnimationContext.js';
+import useIsMobile from '../../utils/hooks/useIsMobile.js';
 
 
 
 const API_URL = isDevelopment ? 'http://localhost:3001/api/send-email' : '/api/send-email';
 
 export default function ContactForm() {
+    const { skipAnimations } = useAnimation();
+    const isMobile = useIsMobile();
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -68,16 +73,23 @@ export default function ContactForm() {
         setError(null);
     };
 
+    const [avatarWidth, scale] = useMemo(() => isMobile ? [100, 1.4] : [150, 1.6], [isMobile]);
+
+
     return (
         <>
-            <div
-                onClick={() => setOpen(!open)}
-                className="portfolio-avatar contact-avatar"
-            >
-                <span className="contact-icon">{"Contact Me * ".repeat(3)}</span>
-                <div className="circular-mask" style={{ border: 'unset', height: '100%', width: '100%' }}>
-                    <img alt="avatar" height="100%" src="assets/clayavatar.jpeg" />
-                </div>
+            <div className="contact-wrapper">
+                <CircularText text="CONTACT ME • CONTACT ME • CONTACT ME • " scale={scale} animate={!skipAnimations}>
+                    <div
+                        onClick={() => setOpen(!open)}
+                        className="portfolio-avatar contact-avatar"
+                        style={{ width: avatarWidth }}
+                    >
+                        <div className="circular-mask" style={{ border: 'unset', height: '100%', width: '100%' }}>
+                            <img alt="avatar" height="100%" src="assets/clayavatar.jpeg" />
+                        </div>
+                    </div>
+                </CircularText>
             </div>
 
             {open && (

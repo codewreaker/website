@@ -1,0 +1,33 @@
+.circular-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.circular-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    pointer-events: none; /* Allows clicking through to the content */
+    transition: transform 0.1s linear; /* Smooth out any potential jerks */
+}
+
+.circular-text span {
+    position: absolute;
+    left: 50%;
+    height: 100%;
+    transform-origin: 0 50%;
+}
+
+.circular-content {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

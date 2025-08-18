@@ -1,8 +1,19 @@
+.contact-wrapper {
+    display: flex;
+    padding: 10% 0px;
+    width: 100%;
+    justify-content: center;
+}
+
 .portfolio-avatar.contact-avatar {
     height: auto;
-    width: 150px;
-    margin: 50px auto;
+    margin: 8px auto;
     cursor: pointer;
+    display: inline-block;
+}
+
+.portfolio-avatar.contact-avatar:hover .circular-text {
+    animation-duration: 15s;
 }
 
 

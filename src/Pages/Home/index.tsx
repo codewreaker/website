@@ -23,6 +23,7 @@ import './home.css';
 import { useAnimation } from '../../context/AnimationContext.js';
 import DecryptedText from '../../Components/DecryptedText/DecryptedText.js';
 import Blog from '../Blog/index.js';
+import useIsMobile from '../../utils/hooks/useIsMobile.js';
 
 
 // Icon Components
@@ -186,7 +187,8 @@ const Hero: React.FC<{ data: Bio }> = ({ data }) => {
               src="assets/bandw.jpeg"
               alt="avatar"
               height={'100%'}
-              className={animClx('animate-float-y-scale')}
+              className={
+                ('animate-float-y-scale')}
             />
           </div>
         </div>
@@ -274,16 +276,9 @@ const CVSection: React.FC<{ data: ExperienceData }> = ({ data }) => {
   const { education, experience } = data;
   const [activeSection, setActiveSection] = useState('about');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [seeMore, setSeeMore] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 430);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
+  
+  const isMobile = useIsMobile();
 
   // Helper to render subtitle with See More
   const renderSubtitle = () => (
