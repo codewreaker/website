@@ -1,30 +1,11 @@
 // api/send-email.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
+import setCors from '../src/utils/set-cors';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Handle CORS
-    const origin = req.headers.origin;
-    const allowedOrigins = [
-        'http://localhost:3000',
-        'http://localhost:5173', // Vite dev server
-        'http://127.0.0.1:5500', // Live Server
-        'https://israelprempeh.com', // Replace with your actual domain
-        'https://blog.israelprempeh.com', // 
-        'https://docs.israelprempeh.com', // 
-        // Add other allowed origins as needed
-    ];
-
-    const corsHeaders = {
-        'Access-Control-Allow-Origin': allowedOrigins.includes(origin || '') ? origin! : '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    };
-
-    // Set CORS headers
-    Object.entries(corsHeaders).forEach(([key, value]) => {
-        res.setHeader(key, value);
-    });
+    setCors(req, res);
 
     // Handle OPTIONS request for CORS preflight
     if (req.method === 'OPTIONS') {
