@@ -5,6 +5,7 @@ export default function handler(
     req: VercelRequest,
     res: VercelResponse,
     allowedOrigins: string[] = [
+        'http://localhost:3001',
         'http://localhost:4200',
         'http://localhost:5173', // Vite dev server
         'http://127.0.0.1:5500', // Live Server

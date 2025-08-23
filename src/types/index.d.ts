@@ -51,6 +51,7 @@ interface HomeData {
   bio: Bio;
   projects: Project[];
   experiences: ExperienceData;
+  blogList: BlogLists[];
 }
 
 
@@ -78,4 +79,24 @@ interface PortfolioStats {
   githubRepos: number;
 }
 
-type Results = [Bio, Project[], ExperienceData];
+interface GithubFile {
+  type: 'file' | 'dir' | 'symlink' | 'submodule' | 'blob';
+  name: string;
+  path: string;
+  download_url: string;
+  html_url: string;
+  size: number;
+  sha: string;
+}
+
+interface BlogLists {
+  metadata: GithubFile;
+  htmlUrl: string;
+  title: string;
+  extension: string;
+  content?: string;
+}
+
+
+
+type Results = [Bio, Project[], ExperienceData, BlogLists[]];

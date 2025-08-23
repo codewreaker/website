@@ -1,3 +1,9 @@
+/**
+ * This is a simple Dev backend server using Hono to handle email sending via a contact form.
+ * it uses nodemailer to send emails through Gmail's SMTP server.
+ * For production the code sits in api/send-email.ts and users Vercel's serverless functions.
+ */
+
 import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
 import nodemailer from 'nodemailer';
@@ -6,6 +12,7 @@ import { cors } from 'hono/cors';
 const app = new Hono();
 
 app.use('/api/*', cors());
+
 
 app.post('/api/send-email', async (c) => {
   const { name, email, message } = await c.req.json();
@@ -23,14 +30,14 @@ app.post('/api/send-email', async (c) => {
   });
 
 
-    const from = `Contact Form <${process.env.EMAIL_USER}>`;
+  const from = `Contact Form <${process.env.EMAIL_USER}>`;
   const to = process.env.EMAIL_USER; // Change to your receiving email address
   const replyTo = email;
   const subject = `New Contact Form Submission from ${name}`;
 
   const mailOptions = {
     from,
-    to, 
+    to,
     replyTo,
     subject,
     html: emailTemplate(name, from, subject, message),

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import type React from 'react';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { SpeechBubble } from '../../Components/SpeechBubble/index.js';
@@ -496,6 +496,7 @@ const Home: React.FC = () => {
     bio: { name: 'Israel Agyeman-Prempeh', description: '...', links: [], title: '...' },
     experiences: { education: [], experience: [] },
     projects: [],
+    blogList: [],
   });
 
   // Memoize steps to prevent recreation on every render
@@ -515,14 +516,18 @@ const Home: React.FC = () => {
         //action: () => portfolioAPI.getExperience().then(({ data }) => data),
         action: () => portfolioAPI.getExperience(),
       },
+      {
+        name: 'Fetching blog posts...',
+        action: () => portfolioAPI.getBlogList(),
+      }
     ],
     []
   );
 
   const handleComplete = (results: Results, state: ProgressLoaderState) => {
     // Safely destructure results with fallbacks
-    const [bio, projects, experiences] = results;
-    setHomePage({ bio, projects, experiences });
+    const [bio, projects, experiences, blogList] = results;
+    setHomePage({ bio, projects, experiences, blogList });
     setTimeout(() => {
       localStorage.setItem('isLoading', JSON.stringify(false));
       setIsLoading(false);
@@ -597,7 +602,7 @@ const Home: React.FC = () => {
         The only way to do great work is to love what you do.{' '}
         <span className="highlight"> — Steve Jobs</span>
       </p>
-      <Blog />
+      <Blog data={homePage.blogList}/>
       <Contact />
     </>
   );

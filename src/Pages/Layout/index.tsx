@@ -1,6 +1,7 @@
 import { RouterProvider, createRouter, createRootRoute, createRoute, Outlet, redirect } from '@tanstack/react-router';
 import Header from '../Header/index.js';
 import Footer from '../Footer/index.js';
+import Home from '../Home/index.js';
 import '../../styles.css';
 import { AnimationProvider } from '../../context/AnimationContext.js';
 import { lazy, Suspense, useEffect, useMemo } from 'react';
@@ -11,7 +12,7 @@ import { RouteErrorDisplay } from '../ErrorBoundary/index.js';
 import { isProduction } from 'std-env'; 
 import SEO from '../../Components/SEO/index.js';
 
-const Home = lazy(() => import('../Home/index.js'));
+//const Home = lazy(() => import('../Home/index.js'));
 
 const adminUrl = 'http://localhost:4201/admin'; // Change to your admin port
 

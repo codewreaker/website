@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import './blog.css';
 import GeometricCard from '../../Components/GeometricCard/index.js';
 import useIsMobile from '../../utils/hooks/useIsMobile.js';
+import { fetchBlogContent } from '../../content/api.js';
 
 // Blog Section Component
-const Blog = () => {
+const Blog = ({ data = [] }: { data: BlogLists[] }) => {
   const isMobile = useIsMobile();
 
 
@@ -22,15 +24,15 @@ const Blog = () => {
                 </div>
                 <h2 className="featured-blog-title">Building My Website</h2>
                 <p className="featured-blog-description">
-                  A deep dive into the development process of my personal website, exploring the technologies 
+                  A deep dive into the development process of my personal website, exploring the technologies
                   and design decisions that went into creating this digital space. Learn about the architecture,
                   tools, and practices used to build a modern, responsive web experience.
                 </p>
               </div>
               <div className="featured-blog-footer">
-                <a 
-                  href="https://blog.israelprempeh.com/blog/building-my-website" 
-                  target="_blank" 
+                <a
+                  href="https://blog.israelprempeh.com/blog/building-my-website"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="featured-blog-link"
                 >
@@ -52,12 +54,27 @@ const Blog = () => {
           tagline={[
             `Hey there! This is where I document my adventures in the world of technology.`,
             'Exploring the intersection of code, creativity, and problem-solving. I write about software development, emerging technologies, and the lessons learned from building things that matter'
-        ].join('\n')}
+          ].join('\n')}
           //customStyle={{ width: 360 }}
           onClick={() => window.open('https://blog.israelprempeh.com', '_blank')}
         />
       </div>
       {/** Create Featured Here */}
+      <ul>
+        {data.map(({
+          extension,
+          title,
+          htmlUrl,
+          metadata
+        }, index) => (
+          <li key={title}>
+            <a href={htmlUrl} target="_blank" rel="noopener noreferrer">
+              {title} ({extension}) - {metadata.size} bytes
+            </a>
+            
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
