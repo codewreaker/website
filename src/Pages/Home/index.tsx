@@ -24,6 +24,7 @@ import { useAnimation } from '../../context/AnimationContext.js';
 import DecryptedText from '../../Components/DecryptedText/DecryptedText.js';
 import Blog from '../Blog/index.js';
 import useIsMobile from '../../utils/hooks/useIsMobile.js';
+import TrueFocus from '../../Components/TrueFocus/TrueFocus.js';
 
 
 // Icon Components
@@ -206,6 +207,7 @@ const Hero: React.FC<{ data: Bio }> = ({ data }) => {
 // Projects Section Component
 const Projects: React.FC<{ data: Project[] }> = ({ data }) => {
   const { skipAnimations } = useAnimation();
+  const isMobile = useIsMobile();
 
   return (
     <div
@@ -218,7 +220,7 @@ const Projects: React.FC<{ data: Project[] }> = ({ data }) => {
         title={'Projects'}
         action={'See All'}
         tagline={'A collection of my work'}
-        customStyle={{ width: 360 }}
+        customStyle={{ width: isMobile ? '100%':360 }}
         onClick={() => window.open('https://github.com/codewreaker/', '_blank')}
       />
       <Terminal tabProjects={data} />
@@ -277,7 +279,7 @@ const CVSection: React.FC<{ data: ExperienceData }> = ({ data }) => {
   const [activeSection, setActiveSection] = useState('about');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [seeMore, setSeeMore] = useState(false);
-  
+
   const isMobile = useIsMobile();
 
   // Helper to render subtitle with See More
@@ -318,66 +320,11 @@ const CVSection: React.FC<{ data: ExperienceData }> = ({ data }) => {
 
   return (
     <div id="cv" className="cv-container">
-      {isMobile && sidebarOpen && (
-        <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)}>
-          <div className="sidebar open" onClick={(e) => e.stopPropagation()}>
-            <div className="sidebar-content">
-              <div className="header-section">
-                <h1 className="name">Curriculum Vitae</h1>
-                <h2 className="title">Front End Engineer</h2>
-                {renderSubtitle()}
-              </div>
-
-              <nav className="navigation">
-                <ul>
-                  <li>
-                    <button
-                      className={`nav-link ${activeSection === 'experience' ? 'active' : ''
-                        }`}
-                      onClick={scrollToSection('experience', setActiveSection)}
-                    >
-                      <span className="nav-indicator"></span>
-                      <span className="nav-text">EXPERIENCE</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className={`nav-link ${activeSection === 'education' ? 'active' : ''
-                        }`}
-                      onClick={scrollToSection('education', setActiveSection)}
-                    >
-                      <span className="nav-indicator"></span>
-                      <span className="nav-text">EDUCATION</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className={`nav-link ${activeSection === 'volunteering' ? 'active' : ''
-                        }`}
-                      onClick={scrollToSection(
-                        'volunteering',
-                        setActiveSection
-                      )}
-                    >
-                      <span className="nav-indicator"></span>
-                      <span className="nav-text">Volunteering</span>
-                    </button>
-                  </li>
-                </ul>
-              </nav>
-              <a className="portfolio-btn" href="/cv-2025.pdf" download>
-                Download CV
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
-      {(!isMobile || !sidebarOpen) && (
         <div className="sidebar">
           <div className="sidebar-content">
             <div className="header-section">
-              <h1 className="name">Curriculum Vitae</h1>
-              <h2 className="title">Front End Engineer</h2>
+              <TrueFocus sentence="Curriculum Vitae" className='name' manualMode borderColor='var(--color-primary)' blurAmount={3}/>
+              <h2 className="title" style={{textAlign:isMobile ? 'center': 'left'}}>Full Stack Engineer</h2>
               {renderSubtitle()}
             </div>
 
@@ -418,7 +365,6 @@ const CVSection: React.FC<{ data: ExperienceData }> = ({ data }) => {
             <button onClick={() => window.open('/cv-2025.pdf')} className="portfolio-btn">Download CV</button>
           </div>
         </div>
-      )}
 
       <div className="main-content">
         <section id="experience" className="content-section">
@@ -602,7 +548,7 @@ const Home: React.FC = () => {
         The only way to do great work is to love what you do.{' '}
         <span className="highlight"> — Steve Jobs</span>
       </p>
-      <Blog data={homePage.blogList}/>
+      <Blog data={homePage.blogList} />
       <Contact />
     </>
   );

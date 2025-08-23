@@ -9,7 +9,6 @@ const Blog = ({ data = [] }: { data: BlogLists[] }) => {
 
   // Featured blog post 
   const fp = data.find(({ frontMatter }) => frontMatter?.featured) || data[0];
-  debugger
 
 
   return (

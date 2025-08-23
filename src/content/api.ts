@@ -237,9 +237,9 @@ async function blogHandler(owner: string, repo: string, path: string, branch = '
         // File extension
         const extension = `.${file.name.split('.').pop()}`;
         // Extract title from filename (remove extension)
-        const title = file.name.replace(extension || new RegExp(/\.(md|mdx)$/), '');
         const preContent = await fetchBlogContent(file.download_url);
         const {content, frontMatter} = parseFrontMatter(preContent);
+        const title = frontMatter?.title || parse(file.name).name.replace(/-/g, ' ');
 
         return {
           metadata: {
@@ -253,7 +253,6 @@ async function blogHandler(owner: string, repo: string, path: string, branch = '
           },
           htmlUrl: `https://blog.israelprempeh.com/blog/${title}`,
           title,
-          extension: extension || 'md',
           content,
           frontMatter
         }
