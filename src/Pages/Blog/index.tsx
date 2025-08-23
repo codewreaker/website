@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
 import './blog.css';
 import GeometricCard from '../../Components/GeometricCard/index.js';
 import useIsMobile from '../../utils/hooks/useIsMobile.js';
-import { fetchBlogContent } from '../../content/api.js';
 
+import BlogLists from './BlogList/index.js';
 // Blog Section Component
 const Blog = ({ data = [] }: { data: BlogLists[] }) => {
   const isMobile = useIsMobile();
+
+  // Featured blog post 
+  const fp = data.find(({ frontMatter }) => frontMatter?.featured) || data[0];
+  debugger
 
 
   return (
@@ -18,20 +21,18 @@ const Blog = ({ data = [] }: { data: BlogLists[] }) => {
         <article className="blog-posts">
           <div className="featured-blog-post">
             <div className="featured-blog-content">
-              <div className="featured-blog-header">
+              {fp && <div className="featured-blog-header">
                 <div className="featured-blog-meta">
-                  <span className="featured-date">Featured Post • August 2025</span>
+                  <span className="featured-date">Featured Post • {new Date(fp.frontMatter?.createdAt || '').toDateString()}</span>
                 </div>
-                <h2 className="featured-blog-title">Building My Website</h2>
+                <h2 className="featured-blog-title">{fp.title}</h2>
                 <p className="featured-blog-description">
-                  A deep dive into the development process of my personal website, exploring the technologies
-                  and design decisions that went into creating this digital space. Learn about the architecture,
-                  tools, and practices used to build a modern, responsive web experience.
+                  {fp.frontMatter?.description}
                 </p>
-              </div>
+              </div>}
               <div className="featured-blog-footer">
                 <a
-                  href="https://blog.israelprempeh.com/blog/building-my-website"
+                  href={fp?.htmlUrl || "https://blog.israelprempeh.com/blog/"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="featured-blog-link"
@@ -59,22 +60,7 @@ const Blog = ({ data = [] }: { data: BlogLists[] }) => {
           onClick={() => window.open('https://blog.israelprempeh.com', '_blank')}
         />
       </div>
-      {/** Create Featured Here */}
-      <ul>
-        {data.map(({
-          extension,
-          title,
-          htmlUrl,
-          metadata
-        }, index) => (
-          <li key={title}>
-            <a href={htmlUrl} target="_blank" rel="noopener noreferrer">
-              {title} ({extension}) - {metadata.size} bytes
-            </a>
-            
-          </li>
-        ))}
-      </ul>
+      <BlogLists data={data} />
     </div>
   );
 };

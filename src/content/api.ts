@@ -1,4 +1,6 @@
-
+//import * as matter from 'gray-matter';
+import grayMatter from 'gray-matter';
+import { parse } from 'path';
 
 // Cache for loaded data to avoid re-importing
 const dataCache = new Map<string, any>();
@@ -144,6 +146,7 @@ export const portfolioAPI = {
         portfolioAPI.getExperience(),
         portfolioAPI.getBlogPosts(),
         portfolioAPI.getStats(),
+        portfolioAPI.getBlogList(),
       ]);
     } catch (error) {
       console.error('Failed to preload portfolio data:', error);
@@ -190,7 +193,15 @@ export const seoUtils = {
   },
 };
 
-
+const parseFrontMatter = (fileContent: string) => {
+  try {
+    const { data, content } = grayMatter(fileContent);
+    return { frontMatter: data, content };
+  } catch (error) {
+    console.error('Error parsing front matter:', error);
+    return { frontMatter: {}, content: fileContent };
+  }
+};
 /**
  * Fetches a list of Markdown and MDX files from a GitHub repository
  * @param {string} owner - GitHub username/organization
@@ -199,7 +210,7 @@ export const seoUtils = {
  * @param {string} [branch='main'] - Branch name (defaults to 'main')
  * @returns {Promise<Array>} Array of file objects with metadata
  */
-async function blogHandler(owner: string, repo: string, path: string, branch = 'main') {
+async function blogHandler(owner: string, repo: string, path: string, branch = 'main'): Promise<BlogLists[]> {
   try {
     const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
 
@@ -227,9 +238,12 @@ async function blogHandler(owner: string, repo: string, path: string, branch = '
         const extension = `.${file.name.split('.').pop()}`;
         // Extract title from filename (remove extension)
         const title = file.name.replace(extension || new RegExp(/\.(md|mdx)$/), '');
-        const content = await fetchBlogContent(file.download_url);
+        const preContent = await fetchBlogContent(file.download_url);
+        const {content, frontMatter} = parseFrontMatter(preContent);
+
         return {
           metadata: {
+            type: file.type,
             name: file.name,
             path: file.path,
             download_url: file.download_url,
@@ -240,7 +254,8 @@ async function blogHandler(owner: string, repo: string, path: string, branch = '
           htmlUrl: `https://blog.israelprempeh.com/blog/${title}`,
           title,
           extension: extension || 'md',
-          content
+          content,
+          frontMatter
         }
       });
 

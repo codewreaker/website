@@ -89,12 +89,29 @@ interface GithubFile {
   sha: string;
 }
 
+type BlogFrontMatter = Partial<{
+  title: string;
+  description: string;
+  pageType: string;
+  sidebar: boolean;
+  category: string;
+  image: {
+    external: boolean;
+    alt: string;
+    url: string;
+  };
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
+  featured: boolean;
+}>;
 interface BlogLists {
   metadata: GithubFile;
   htmlUrl: string;
   title: string;
   extension: string;
-  content?: string;
+  content: string;
+  frontMatter: BlogFrontMatter;
 }
 
 
