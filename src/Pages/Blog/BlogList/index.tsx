@@ -48,7 +48,7 @@ const BlogListItem: React.FC<{
               </svg>
             </h3>
             <div className="right-section">
-              <span className="experience-subtitle">{subtitle}</span>
+              {/* <span className="experience-subtitle">{subtitle}</span> */}
               <span className="blog-list-date">{isValidDate(createdAt) ? createdAt.toDateString() : new Date('2025-08-17').toDateString()}</span>
               <div className="tech-stack">
                 ——

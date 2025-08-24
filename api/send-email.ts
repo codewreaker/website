@@ -1,7 +1,7 @@
 // api/send-email.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
-import setCors from '../src/utils/set-cors';
+import setCors from '../src/utils/set-cors.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Handle CORS
