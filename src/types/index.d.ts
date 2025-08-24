@@ -101,7 +101,7 @@ type BlogFrontMatter = Partial<{
     url: string;
   };
   tags: string[];
-  createdAt: string;
+  createdAt: Date;
   updatedAt: string;
   featured: boolean;
 }>;
@@ -109,7 +109,6 @@ interface BlogLists {
   metadata: GithubFile;
   htmlUrl: string;
   title: string;
-  extension: string;
   content: string;
   frontMatter: BlogFrontMatter;
 }

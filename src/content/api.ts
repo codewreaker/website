@@ -235,11 +235,11 @@ async function blogHandler(owner: string, repo: string, path: string, branch = '
       )
       .map(async(file) => {
         // File extension
-        const extension = `.${file.name.split('.').pop()}`;
         // Extract title from filename (remove extension)
         const preContent = await fetchBlogContent(file.download_url);
         const {content, frontMatter} = parseFrontMatter(preContent);
         const title = frontMatter?.title || parse(file.name).name.replace(/-/g, ' ');
+        const path = file.name.split('.').slice(0, -1).join('.');
 
         return {
           metadata: {
@@ -251,7 +251,7 @@ async function blogHandler(owner: string, repo: string, path: string, branch = '
             size: file.size,
             sha: file.sha,
           },
-          htmlUrl: `https://blog.israelprempeh.com/blog/${title}`,
+          htmlUrl: `https://blog.israelprempeh.com/blog/${path}`,
           title,
           content,
           frontMatter

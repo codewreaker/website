@@ -277,7 +277,6 @@ const ExperienceItemComponent: React.FC<ExperienceItem> = ({
 const CVSection: React.FC<{ data: ExperienceData }> = ({ data }) => {
   const { education, experience } = data;
   const [activeSection, setActiveSection] = useState('about');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [seeMore, setSeeMore] = useState(false);
 
   const isMobile = useIsMobile();

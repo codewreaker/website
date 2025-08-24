@@ -59,7 +59,7 @@ const Blog = ({ data = [] }: { data: BlogLists[] }) => {
           onClick={() => window.open('https://blog.israelprempeh.com', '_blank')}
         />
       </div>
-      <BlogLists data={data} />
+      <BlogLists data={data}/>
     </div>
   );
 };
