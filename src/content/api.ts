@@ -131,8 +131,6 @@ export const portfolioAPI = {
         'blogs',           // repo
         'docs/blog'        // path
       );
-
-      console.log('Found blog files:', blogs);
       return blogs;
     });
   },
@@ -284,36 +282,5 @@ export async function fetchBlogContent(downloadUrl: string): Promise<string> {
     throw error;
   }
 }
-
-
-
-// Example: Get blog list and fetch content of first blog
-// async function exampleUsage() {
-//     try {
-//         // Get list of blog files
-//         const blogFiles = await getBlogList();
-
-//         if (blogFiles.length > 0) {
-//             console.log(`Found ${blogFiles.length} blog files`);
-
-//             // Fetch content of the first blog
-//             const firstBlog = blogFiles[0];
-//             console.log(`Fetching content for: ${firstBlog.name}`);
-
-//             const content = await fetchBlogContent(firstBlog.downloadUrl);
-//             console.log('Blog content preview:', content.substring(0, 200) + '...');
-//         } else {
-//             console.log('No blog files found');
-//         }
-//     } catch (error) {
-//         console.error('Example usage failed:', error);
-//     }
-// }
-
-// Export functions for use in modules
-// export { fetchBlogFiles, fetchBlogContent, getBlogList };
-
-// Uncomment the line below to run the example
-// exampleUsage();
 
 export default portfolioAPI;

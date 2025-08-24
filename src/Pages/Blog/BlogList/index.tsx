@@ -16,7 +16,6 @@ const BlogListItem: React.FC<{
   subtitle,
   url
 }) => {
-    console.log(url);
     return (
       <li className="blog-liist-item">
         <a href={url} target="_blank" rel="noopener noreferrer" className="blog-list-link">
@@ -57,7 +56,6 @@ const BlogListItem: React.FC<{
   };
 
 const BlogLists = ({ data = [] }: { data: BlogLists[] }) => {
-  const [focus, setFocus] = useState<boolean>(false);
   return (
     <ul className="blog-list gradient-bg">
       {data.map(({

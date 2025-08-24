@@ -8,7 +8,6 @@ export const scrollToSection =
       window.history.pushState(null, '', `#${sectionId}`);
       if (offset) {
         const targetPosition = target.offsetTop;
-        console.log('targetPosition', targetPosition);
         window.scrollTo({
           behavior: 'smooth',
           top: targetPosition - offset,

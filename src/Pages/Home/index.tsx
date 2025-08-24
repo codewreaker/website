@@ -219,7 +219,7 @@ const Projects: React.FC<{ data: Project[] }> = ({ data }) => {
         heading={'Developer'}
         title={'Projects'}
         action={'See All'}
-        tagline={'A collection of my work'}
+        tagline={'In progress projects and experiments'}
         customStyle={{ width: isMobile ? '100%':360 }}
         onClick={() => window.open('https://github.com/codewreaker/', '_blank')}
       />
