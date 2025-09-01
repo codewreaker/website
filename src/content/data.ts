@@ -14,30 +14,32 @@ const bio = {
 
 const githubMono = 'https://github.com/codewreaker/adenta/tree/main/packages';
 
+const npmOrg = 'https://www.npmjs.com/package/@adenta'
+
 const tabProjects = [
   {
     name: '@adenta/core',
     description:
       'Core utilities and shared functionality for the @adenta ecosystem',
-    path: `${githubMono}/core`,
+    path: `${npmOrg}/core`,
     key: 'core',
   },
   {
     name: '@adenta/ui',
     description: 'A beautiful and modern UI component library',
-    path: `${githubMono}/ui`,
+    path: `${npmOrg}/ui`,
     key: 'ui',
   },
   {
     name: '@adenta/cli',
     description: 'Command line tools for @adenta projects',
-    path: `${githubMono}/cli`,
+    path: `${npmOrg}/cli`,
     key: 'cli',
   },
   {
     name: '@adenta/cms',
     description: 'A ready to go CMS built on payloadcms',
-    path: `${githubMono}/cms`,
+    path: `${npmOrg}/cms`,
     key: 'cms',
   },
 ];
