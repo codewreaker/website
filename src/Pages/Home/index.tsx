@@ -21,7 +21,6 @@ import ProgressLoader from '../../Components/Loader/ProgressLoader.js';
 
 import './home.css';
 import { useAnimation } from '../../context/AnimationContext.js';
-import DecryptedText from '../../Components/DecryptedText/DecryptedText.js';
 import Blog from '../Blog/index.js';
 import useIsMobile from '../../utils/hooks/useIsMobile.js';
 import TrueFocus from '../../Components/TrueFocus/TrueFocus.js';
@@ -134,13 +133,7 @@ const Hero: React.FC<{ data: Bio }> = ({ data }) => {
       <div className="portfolio-intro">
         <SpeechBubble direction="bottom">Hello I'm</SpeechBubble>
         <h1 className="portfolio-name">
-          <DecryptedText
-            delay={{ time: 500, after: true }} // Add a delay of 500ms before starting the animation
-            text={data?.name}
-            animateOn="view"
-            speed={100}
-            revealDirection="center"
-          />
+          {data?.name}
         </h1>
 
       </div>
@@ -361,7 +354,7 @@ const CVSection: React.FC<{ data: ExperienceData }> = ({ data }) => {
                 </li>
               </ul>
             </nav>
-            <button onClick={() => window.open('/cv-2025.pdf')} className="portfolio-btn">Download CV</button>
+            <button onClick={() => window.open('/cv-2026.pdf')} className="portfolio-btn">Download CV</button>
           </div>
         </div>
 
@@ -490,7 +483,7 @@ const Home: React.FC = () => {
     onComplete: handleComplete,
     onStep: handleStep,
     autoStart: true,
-    delay: 40,
+    delay: 0,
   });
 
   // Show loader while loading
